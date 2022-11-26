@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
          window = UIWindow(frame: windowScene.coordinateSpace.bounds)
          window?.windowScene = windowScene
-        let confi = Configurator()
+        let confi = MainModuleConfigurator()
         let viewContr = confi.configureMainModule()
         let navCon = UINavigationController(rootViewController: viewContr)
        // let navCon = UINavigationController(rootViewController: DetailViewController())

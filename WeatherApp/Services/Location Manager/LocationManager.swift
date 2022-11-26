@@ -8,11 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Location {
-    let title: String
-    let address: String
-    let coordinates: CLLocationCoordinate2D?
-}
+
 
 class LocationManager: NSObject {
     
@@ -33,14 +29,12 @@ class LocationManager: NSObject {
                 }
                 
                 
-                var address = ""
-                
                 if let country = place.country {
-                    address += "\(country)"
+                   name += ", \(country)"
                 }
                 
     
-                let result = Location(title: name, address: address, coordinates: place.location?.coordinate)
+                let result = Location(title: name, coordinates: place.location?.coordinate)
                 
                 return result
             })

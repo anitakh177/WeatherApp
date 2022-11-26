@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MainViewInput {
-    
+    func reloadData()
 }

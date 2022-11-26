@@ -10,15 +10,23 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-    var presenter: MainViewOutput!
+    // MARK: - Views
     private let tableView = UITableView()
-    private let serachController = UISearchController(searchResultsController: nil)
+    private let serachController: UISearchController = {
+        let configurator = MainModuleConfigurator()
+        let locationSearchTable = configurator.searchTableConfigurator()
+        let search = UISearchController(searchResultsController: locationSearchTable)
+        search.searchResultsUpdater = locationSearchTable as? any UISearchResultsUpdating
+        return search
+    }()
+    
+    // MARK: - Properties
+    
+    var presenter: MainViewOutput!
     var locations = [Location]()
-    
     var locationManager = CLLocationManager()
-    
-    
-    var filteredData: [String] = []
+
+    // MARK: - Properties
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +35,12 @@ class MainViewController: UIViewController {
         
     }
 
-
 }
 
 extension MainViewController: MainViewInput {
-    
+    func reloadData() {
+        tableView.reloadData()
+    }
 }
 // MARK: - Private Methods
 
@@ -72,6 +81,9 @@ private extension MainViewController {
         view.backgroundColor = .white
         navigationItem.title = "Weather"
         navigationItem.searchController = serachController
+        navigationItem.titleView = serachController.searchBar
+        serachController.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
         serachController.searchBar.delegate = self
         
         configureTableView()
@@ -83,6 +95,8 @@ private extension MainViewController {
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 100
+        tableView.register(CurrentWeatherTableViewCell.self, forCellReuseIdentifier: "\(CurrentWeatherTableViewCell.self)")
     }
     
 }
@@ -90,22 +104,30 @@ private extension MainViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      
-        return locations.count
+        return 1
     }
     
     
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.textLabel?.text = locations[indexPath.row].title
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+        if let weather = presenter.currentWeather {
+            cell?.configureDataSource(weather: weather)
+            
+            }
+        return cell ?? UITableViewCell()
+       
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let coordinate = locations[indexPath.row].coordinates
-         presenter.loadData(for: coordinate!)
+         let configurator = DetailModuleConfigurator()
+         
+         if let weather = presenter?.currentWeather {
+            let controller =  configurator.configure(weather: weather)
+             navigationController?.pushViewController(controller, animated: true)
+         }
+        
     }
     
     

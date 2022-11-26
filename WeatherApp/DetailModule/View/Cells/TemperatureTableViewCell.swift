@@ -55,17 +55,19 @@ class TemperatureTableViewCell: UITableViewCell {
        setConstaints()
     }
     
-    func setConstaints() {
+  private  func setConstaints() {
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40)
-        
-        
         ])
     }
     
+    func configureDataSource(weather: CurrentWeather) {
+        descriptionLabel.text = weather.weather.first!.main
+        temperatureLabel.text = "\(weather.main.temp)"
+    }
 
 }

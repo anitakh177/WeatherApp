@@ -10,6 +10,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    // MARK: - Propertis
+    
+    var presenter: DetailViewPresenter!
+    
+    // MARK: - Views
+    
     private let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -45,10 +51,18 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
+       
+       
+        cell?.configureDataSource(weather: presenter.weather)
+        
         
         return cell ?? UITableViewCell()
     }
     
     
+    
+}
+
+extension DetailViewController: DetailViewInput {
     
 }

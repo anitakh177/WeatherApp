@@ -9,8 +9,7 @@ import Foundation
 import CoreLocation
 
 class MainViewPresenter: MainViewOutput {
-    
-  
+      
     var view: MainViewInput?
     let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
@@ -25,6 +24,7 @@ class MainViewPresenter: MainViewOutput {
         dataFetcherService.searchCoordinates(coord: coord) { weather in
             self.currentWeather = weather
             print(self.currentWeather)
+            self.view?.reloadData()
         }
     }
     
@@ -32,6 +32,8 @@ class MainViewPresenter: MainViewOutput {
         dataFetcherService.searchCity(text: text) { weather in
            self.currentWeather = weather
             print(self.currentWeather)
+            self.view?.reloadData()
+            
         }
         
     }
