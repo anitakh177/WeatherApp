@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: - CurrentWeather
 struct CurrentWeather: Codable {
     let coord: Coord

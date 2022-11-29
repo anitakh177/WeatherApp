@@ -9,10 +9,16 @@ import UIKit
 
 class TemperatureTableViewCell: UITableViewCell {
     
+    private lazy var cityLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 30, weight: .medium)
+        return label
+    }()
+    
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "05.partial-cloudy-dark")
-        image.backgroundColor = .cyan
         return image
     }()
     
@@ -32,8 +38,15 @@ class TemperatureTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var highAndLowTemp: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }()
+    
     private lazy var verticalStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [iconImageView, descriptionLabel, temperatureLabel])
+        let stack = UIStackView(arrangedSubviews: [cityLabel, iconImageView, descriptionLabel, temperatureLabel, highAndLowTemp])
         stack.axis = .vertical
         stack.distribution = .fillProportionally
         return stack
@@ -66,8 +79,27 @@ class TemperatureTableViewCell: UITableViewCell {
     }
     
     func configureDataSource(weather: CurrentWeather) {
+        
+        let dateConverter = DateConverter(timezone: weather.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
+        let icon = IconWithString()
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: weather.timezone)
+     
+        let image = icon.getIcon(with: weather.weather.first!.id, isDay: isDay)
+        iconImageView.image = UIImage(named: image)
+        cityLabel.text = weather.name
         descriptionLabel.text = weather.weather.first!.main
-        temperatureLabel.text = "\(weather.main.temp)"
+        temperatureLabel.text = String(format: "%.f", weather.main.temp) + "°"
+        let tempHigh = String(format: "%.f", weather.main.tempMax)
+        let tempLow = String(format: "%.f", weather.main.tempMin)
+        highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
+        
+       
+        
+        
+       
     }
 
 }
+
+

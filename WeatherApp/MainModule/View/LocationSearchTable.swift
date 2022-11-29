@@ -5,15 +5,22 @@
 //  Created by anita on 11/25/22.
 //
 
+
 import UIKit
 //import CoreLocation
+
+protocol SelectedCellProtocol {
+    func didSelectedCell(weather: CurrentWeather)
+}
 
 class LocationSearchTable: UITableViewController {
     
     // MARK: - Properties
 
-    var presenter: MainViewOutput?
-    var locations: [Location] = []
+    var presenter: SearchTableViewOutput?
+    var locations: [Location]? 
+    
+    var delegateSearch: SelectedCellProtocol?
 
     // MARK: - Lifecycle
     
@@ -28,10 +35,7 @@ class LocationSearchTable: UITableViewController {
     
 }
 
-extension LocationSearchTable: MainViewInput {
-    func reloadData() {
-        tableView.reloadData()
-    }
+extension LocationSearchTable: SearchTableViewInput {
     
     
 }
@@ -44,7 +48,7 @@ extension LocationSearchTable: UISearchResultsUpdating {
             LocationManager.shared.findLocations(with: text) { [weak self] location in
             
                 DispatchQueue.main.async {
-                    self?.locations += location
+                    self?.locations! += location
                     self?.tableView.reloadData()
                 }
             }
@@ -59,31 +63,36 @@ extension LocationSearchTable: UISearchResultsUpdating {
 extension LocationSearchTable {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        guard let locations = locations else { return 0 }
+
+            return locations.count
+        
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.textLabel?.text = locations[indexPath.row].title
+        if let locations = locations {
+            cell.textLabel?.text = locations[indexPath.row].title
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let coordinate = locations[indexPath.row].coordinates
+        //  tableView.deselectRow(at: indexPath, animated: true)
+        guard let locations = locations else { return }
+            let coordinate = locations[indexPath.row].coordinates
+            
+            presenter?.loadData(for: coordinate!)
+            
+            let configurator = DetailModuleConfigurator()
+            
+            if let weather = presenter?.currentWeather {
+                let controller =  configurator.configure(weather: weather)
+                self.delegateSearch?.didSelectedCell(weather: weather)
+              
         
-        presenter?.loadData(for: coordinate!)
-      //  delegate?.locationViewController(self, didSelectLocationWith: coordinate)
-        
-        let configurator = DetailModuleConfigurator()
-        
-        if let weather = presenter?.currentWeather {
-           let controller =  configurator.configure(weather: weather)
-            navigationController?.pushViewController(controller, animated: true)
         }
-        
-       // dismiss(animated: true)
     }
     
     

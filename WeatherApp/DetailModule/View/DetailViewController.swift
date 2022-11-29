@@ -38,6 +38,7 @@ private extension DetailViewController {
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 500
         tableView.register(TemperatureTableViewCell.self, forCellReuseIdentifier: "\(TemperatureTableViewCell.self)")
     }
     
@@ -51,13 +52,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
-       
-       
         cell?.configureDataSource(weather: presenter.weather)
-        
-        
         return cell ?? UITableViewCell()
     }
+    
     
     
     

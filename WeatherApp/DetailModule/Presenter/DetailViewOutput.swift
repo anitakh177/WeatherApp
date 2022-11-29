@@ -8,6 +8,8 @@
 import Foundation
 
 protocol DetailViewOutput: AnyObject {
+    
     var weather: CurrentWeather { get }
     init(weather: CurrentWeather)
+    
 }

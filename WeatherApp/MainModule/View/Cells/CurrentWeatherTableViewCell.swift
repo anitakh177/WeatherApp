@@ -8,7 +8,7 @@
 import UIKit
 
 class CurrentWeatherTableViewCell: UITableViewCell {
-    
+   
     private lazy var myLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "My Location"
@@ -37,6 +37,13 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 30, weight: .bold)
         return label
     }()
+    
+    private lazy var highAndLowTemp: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        return label
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,17 +56,21 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     }
     
     private func setConstraints() {
+        
         contentView.addSubview(myLocationLabel)
         contentView.addSubview(cityLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(tempLabel)
+        contentView.addSubview(highAndLowTemp)
         
         myLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        highAndLowTemp.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            
             myLocationLabel.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 40),
             myLocationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             myLocationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -75,8 +86,9 @@ class CurrentWeatherTableViewCell: UITableViewCell {
             tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
+            highAndLowTemp.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: 20)
             
-        
         ])
         myLocationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
@@ -84,6 +96,11 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     func configureDataSource(weather: CurrentWeather) {
         cityLabel.text = weather.name
         descriptionLabel.text = weather.weather.first!.main
-        tempLabel.text = "\(weather.main.temp)"
+        tempLabel.text = String(format: "%.f", weather.main.temp) + "°"
+        let tempHigh = String(format: "%.f", weather.main.tempMax)
+        let tempLow = String(format: "%.f", weather.main.tempMin)
+        highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
+        
+       
     }
 }

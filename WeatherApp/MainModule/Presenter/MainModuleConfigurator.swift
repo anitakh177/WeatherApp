@@ -19,10 +19,10 @@ final class MainModuleConfigurator {
         return view
     }
     
-    func searchTableConfigurator() -> UITableViewController {
+    func searchTableConfigurator() -> LocationSearchTable {
         let view = LocationSearchTable()
         let dataFetcherService = DataFetcherService()
-        let presenter = MainViewPresenter(view: view, dataFetcherService: dataFetcherService)
+        let presenter = SearchTableViewPresenter(view: view, dataFetcherService: dataFetcherService)
         view.presenter = presenter
         
         return view

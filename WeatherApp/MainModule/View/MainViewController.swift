@@ -8,17 +8,27 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, SelectedCellProtocol {
+    
+    func didSelectedCell(weather: CurrentWeather) {
+        let configurator = DetailModuleConfigurator()
+        let controller = configurator.configure(weather: weather)
+       navigationController?.pushViewController(controller, animated: true)
+    }
+    
     
     // MARK: - Views
     private let tableView = UITableView()
-    private let serachController: UISearchController = {
+ /*   private let serachController: UISearchController = {
         let configurator = MainModuleConfigurator()
         let locationSearchTable = configurator.searchTableConfigurator()
         let search = UISearchController(searchResultsController: locationSearchTable)
-        search.searchResultsUpdater = locationSearchTable as? any UISearchResultsUpdating
+        search.searchResultsUpdater = locationSearchTable //as? any UISearchResultsUpdating
         return search
     }()
+    */
+    
+    private var serachController = UISearchController()
     
     // MARK: - Properties
     
@@ -30,6 +40,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         configureView()
         attemptLocationAccess()
         
@@ -78,6 +89,13 @@ private extension MainViewController {
     }
     
     func configureView() {
+        let configurator = MainModuleConfigurator()
+        let locationSearchTable = configurator.searchTableConfigurator()
+       serachController = UISearchController(searchResultsController: locationSearchTable)
+        serachController.searchResultsUpdater = locationSearchTable //as? any UISearchResultsUpdating
+   //  let search = LocationSearchTable()
+        locationSearchTable.delegateSearch = self
+        
         view.backgroundColor = .white
         navigationItem.title = "Weather"
         navigationItem.searchController = serachController
