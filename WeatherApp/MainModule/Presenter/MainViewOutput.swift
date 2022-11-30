@@ -13,6 +13,7 @@ protocol MainViewOutput {
     func loadData(for text: String)
     var currentWeather: CurrentWeather? { get set }
     func loadData(for coord: CLLocationCoordinate2D) 
-  
-     
+    func pushDetailVC(weather: CurrentWeather)
+    func pushSearchVC()
+    
 }

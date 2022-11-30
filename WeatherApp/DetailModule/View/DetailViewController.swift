@@ -30,6 +30,17 @@ private extension DetailViewController {
     
     func configureAppearance() {
         configureTableView()
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
+        let leftNavBar = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+        leftNavBar.tintColor = .black
+        navigationItem.leftBarButtonItem = leftNavBar
+    }
+    
+    @objc func close() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func configureTableView() {
@@ -62,5 +73,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension DetailViewController: DetailViewInput {
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
     
 }

@@ -8,25 +8,11 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController, SelectedCellProtocol {
-    
-    func didSelectedCell(weather: CurrentWeather) {
-        let configurator = DetailModuleConfigurator()
-        let controller = configurator.configure(weather: weather)
-       navigationController?.pushViewController(controller, animated: true)
-    }
-    
+class MainViewController: UIViewController, ModuleTransitionable {
     
     // MARK: - Views
     private let tableView = UITableView()
- /*   private let serachController: UISearchController = {
-        let configurator = MainModuleConfigurator()
-        let locationSearchTable = configurator.searchTableConfigurator()
-        let search = UISearchController(searchResultsController: locationSearchTable)
-        search.searchResultsUpdater = locationSearchTable //as? any UISearchResultsUpdating
-        return search
-    }()
-    */
+ 
     
     private var serachController = UISearchController()
     
@@ -89,22 +75,21 @@ private extension MainViewController {
     }
     
     func configureView() {
-        let configurator = MainModuleConfigurator()
-        let locationSearchTable = configurator.searchTableConfigurator()
-       serachController = UISearchController(searchResultsController: locationSearchTable)
-        serachController.searchResultsUpdater = locationSearchTable //as? any UISearchResultsUpdating
-   //  let search = LocationSearchTable()
-        locationSearchTable.delegateSearch = self
-        
+       
         view.backgroundColor = .white
         navigationItem.title = "Weather"
-        navigationItem.searchController = serachController
-        navigationItem.titleView = serachController.searchBar
-        serachController.hidesNavigationBarDuringPresentation = false
-        definesPresentationContext = true
-        serachController.searchBar.delegate = self
-        
+       
         configureTableView()
+        configureNavigationBar()
+    }
+    func configureNavigationBar() {
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(openSearchVC))
+        rightBarButtonItem.tintColor = .black
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    @objc func openSearchVC() {
+        presenter.pushSearchVC()
     }
     
     func configureTableView() {
@@ -139,35 +124,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-         let configurator = DetailModuleConfigurator()
-         
          if let weather = presenter?.currentWeather {
-            let controller =  configurator.configure(weather: weather)
-             navigationController?.pushViewController(controller, animated: true)
+             presenter.pushDetailVC(weather: weather)
          }
-        
     }
-    
-    
 }
-
-extension MainViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if let text = searchBar.text, !text.isEmpty {
-            self.locations = []
-            LocationManager.shared.findLocations(with: text) { [weak self] location in
-            
-                DispatchQueue.main.async {
-                    self?.locations += location
-                    self?.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-}
-
 
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -175,11 +136,9 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         if let location = locations.last {
             presenter.loadData(for: location.coordinate)
-            print(location)
-                }
-        
+
+        }
     }
 }

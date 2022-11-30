@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SearchTableViewInput {
-    
+    func reloadData()
 }

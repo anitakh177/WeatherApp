@@ -9,10 +9,11 @@ import Foundation
 import CoreLocation
 
 class MainViewPresenter: MainViewOutput {
-      
+    
     var view: MainViewInput?
     let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
+    var router: MainRouterInput?
     
     required init(view: MainViewInput, dataFetcherService: DataFetcherService) {
         self.view = view
@@ -34,6 +35,15 @@ class MainViewPresenter: MainViewOutput {
             self.view?.reloadData()
             
         }
-        
     }
+    
+    func pushDetailVC(weather: CurrentWeather) {
+        router?.showPushModule(weather: weather)
+    }
+   
+    func pushSearchVC() {
+        router?.showSearchModule()
+    }
+    
+      
 }

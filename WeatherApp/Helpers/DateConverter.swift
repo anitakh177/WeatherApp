@@ -17,7 +17,7 @@ struct DateConverter {
     func convertDateFromUTC(string: Int) -> Date {
         
         let utcDate = convertDate(from: String(string))
-        return utcDate //.addingTimeInterval(self.timezone)
+        return utcDate.addingTimeInterval(self.timezone)
     }
     
     private func convertDate(from string: String) -> Date {
@@ -40,6 +40,10 @@ struct DateConverter {
           minute: 30,
           second: 0,
           of: now)!.addingTimeInterval(TimeInterval(timeZone))
+        
+        print(now)
+        print(eight_today)
+        print(four_thirty_today)
 
         if now >= eight_today &&
           now <= four_thirty_today

@@ -12,19 +12,12 @@ final class MainModuleConfigurator {
     
     func configureMainModule() -> UIViewController {
       let view = MainViewController()
+      let router = MainRouter()
       let dataFetcherService = DataFetcherService()
       let presenter = MainViewPresenter(view: view, dataFetcherService: dataFetcherService)
         view.presenter = presenter
-        
-        return view
-    }
-    
-    func searchTableConfigurator() -> LocationSearchTable {
-        let view = LocationSearchTable()
-        let dataFetcherService = DataFetcherService()
-        let presenter = SearchTableViewPresenter(view: view, dataFetcherService: dataFetcherService)
-        view.presenter = presenter
-        
+        presenter.router = router
+        router.view = view
         return view
     }
 }

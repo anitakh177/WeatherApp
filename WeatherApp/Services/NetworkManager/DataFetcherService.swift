@@ -10,7 +10,7 @@ import CoreLocation
 
 final class DataFetcherService {
 
-private let apiKey = "&"
+private let apiKey = "&appid=bc09970cb87005d86c068ee8f8b88dde"
 private let baseURL = "https://api.openweathermap.org/data/2.5/weather?"
     
     private enum Units {

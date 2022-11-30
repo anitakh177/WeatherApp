@@ -2,13 +2,12 @@
 //  DetailModuleConfigurator.swift
 //  WeatherApp
 //
-//  Created by anita on 11/26/22.
+//  Created by anita on 11/30/22.
 //
 
 import Foundation
 
 final class DetailModuleConfigurator {
-    
     func configure(weather: CurrentWeather) -> DetailViewController {
         let view = DetailViewController()
         let presenter = DetailViewPresenter(weather: weather)
@@ -18,4 +17,5 @@ final class DetailModuleConfigurator {
         
         return view
     }
+    
 }

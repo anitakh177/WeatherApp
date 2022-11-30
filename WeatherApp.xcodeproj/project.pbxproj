@@ -30,10 +30,19 @@
 		08AC4FF229326F8400253C3D /* DetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC4FF129326F8400253C3D /* DetailViewPresenter.swift */; };
 		08AC4FF429326F8F00253C3D /* DetailViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC4FF329326F8F00253C3D /* DetailViewOutput.swift */; };
 		08AC4FF629326FEC00253C3D /* DetailViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC4FF529326FEC00253C3D /* DetailViewInput.swift */; };
-		08AC4FF82932703700253C3D /* DetailModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC4FF72932703700253C3D /* DetailModuleConfigurator.swift */; };
 		08C3E54C29333EAE00CEE490 /* SearchTableViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C3E54B29333EAE00CEE490 /* SearchTableViewInput.swift */; };
 		08C3E54E29333EBA00CEE490 /* SearchTableViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C3E54D29333EBA00CEE490 /* SearchTableViewOutput.swift */; };
 		08C3E55029333EC900CEE490 /* SearchTableViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C3E54F29333EC900CEE490 /* SearchTableViewPresenter.swift */; };
+		08D938D329373CD9001C9D7B /* LocationSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938D229373CD9001C9D7B /* LocationSearchTableViewCell.swift */; };
+		08D938D729376CA6001C9D7B /* SearchModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938D629376CA6001C9D7B /* SearchModuleConfigurator.swift */; };
+		08D938DA29376CD3001C9D7B /* DetailModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938D929376CD3001C9D7B /* DetailModuleConfigurator.swift */; };
+		08D938E129376F7B001C9D7B /* SearchRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938E029376F7B001C9D7B /* SearchRouterInput.swift */; };
+		08D938E329376F91001C9D7B /* DetailRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938E229376F91001C9D7B /* DetailRouterInput.swift */; };
+		08D938E529376F9D001C9D7B /* MainRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938E429376F9D001C9D7B /* MainRouterInput.swift */; };
+		08D938E729377143001C9D7B /* ModuleTransitionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938E629377143001C9D7B /* ModuleTransitionable.swift */; };
+		08D938E92937719F001C9D7B /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938E82937719F001C9D7B /* MainRouter.swift */; };
+		08D938EB29377BCF001C9D7B /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938EA29377BCF001C9D7B /* SearchRouter.swift */; };
+		08D938ED29378065001C9D7B /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D938EC29378065001C9D7B /* DetailRouter.swift */; };
 		08F2D1912935E22600AD6AA4 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F2D1902935E22600AD6AA4 /* DateConverter.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,10 +72,19 @@
 		08AC4FF129326F8400253C3D /* DetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewPresenter.swift; sourceTree = "<group>"; };
 		08AC4FF329326F8F00253C3D /* DetailViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewOutput.swift; sourceTree = "<group>"; };
 		08AC4FF529326FEC00253C3D /* DetailViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewInput.swift; sourceTree = "<group>"; };
-		08AC4FF72932703700253C3D /* DetailModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModuleConfigurator.swift; sourceTree = "<group>"; };
 		08C3E54B29333EAE00CEE490 /* SearchTableViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewInput.swift; sourceTree = "<group>"; };
 		08C3E54D29333EBA00CEE490 /* SearchTableViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewOutput.swift; sourceTree = "<group>"; };
 		08C3E54F29333EC900CEE490 /* SearchTableViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewPresenter.swift; sourceTree = "<group>"; };
+		08D938D229373CD9001C9D7B /* LocationSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewCell.swift; sourceTree = "<group>"; };
+		08D938D629376CA6001C9D7B /* SearchModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleConfigurator.swift; sourceTree = "<group>"; };
+		08D938D929376CD3001C9D7B /* DetailModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModuleConfigurator.swift; sourceTree = "<group>"; };
+		08D938E029376F7B001C9D7B /* SearchRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouterInput.swift; sourceTree = "<group>"; };
+		08D938E229376F91001C9D7B /* DetailRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouterInput.swift; sourceTree = "<group>"; };
+		08D938E429376F9D001C9D7B /* MainRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouterInput.swift; sourceTree = "<group>"; };
+		08D938E629377143001C9D7B /* ModuleTransitionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleTransitionable.swift; sourceTree = "<group>"; };
+		08D938E82937719F001C9D7B /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		08D938EA29377BCF001C9D7B /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		08D938EC29378065001C9D7B /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		08F2D1902935E22600AD6AA4 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +102,8 @@
 		08387030292F73B20084E606 /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
+				08D938DD29376F0B001C9D7B /* Router */,
+				08D938D529376C77001C9D7B /* Configurator */,
 				08387033292F73CC0084E606 /* Model */,
 				08387032292F73C40084E606 /* View */,
 				08387031292F73BC0084E606 /* Presenter */,
@@ -94,7 +114,6 @@
 		08387031292F73BC0084E606 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				084E00CB292F79DA00F83E3B /* MainModuleConfigurator.swift */,
 				08387034292F73E60084E606 /* MainViewInput.swift */,
 				08387036292F73F20084E606 /* MainViewOutput.swift */,
 				08387038292F73FC0084E606 /* MainViewPresenter.swift */,
@@ -107,7 +126,6 @@
 			children = (
 				083C34582931198F0066BE22 /* Cells */,
 				087ECEE7292E7FB4005A97A3 /* MainViewController.swift */,
-				083C345B29311E730066BE22 /* LocationSearchTable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -116,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				087B8973292F48520029FAA2 /* CurrentWeather.swift */,
-				08AC4FEE2932421800253C3D /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,6 +149,8 @@
 		083C344F2930BD7D0066BE22 /* DetailModule */ = {
 			isa = PBXGroup;
 			children = (
+				08D938DE29376F12001C9D7B /* Router */,
+				08D938D829376CC1001C9D7B /* Configurator */,
 				08AC4FF02932447E00253C3D /* Presenter */,
 				083C34502930BD870066BE22 /* View */,
 			);
@@ -187,6 +206,7 @@
 			children = (
 				087D4C752934B909001B8231 /* IconWithString.swift */,
 				08F2D1902935E22600AD6AA4 /* DateConverter.swift */,
+				08D938E629377143001C9D7B /* ModuleTransitionable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -217,17 +237,13 @@
 		087ECEE2292E7FB4005A97A3 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				08D938DC29376EAD001C9D7B /* Application */,
 				08387030292F73B20084E606 /* MainModule */,
 				083C344F2930BD7D0066BE22 /* DetailModule */,
 				08F2D1922936131400AD6AA4 /* SearchModule */,
 				087D4C742934B8C8001B8231 /* Helpers */,
 				087D4C772934EDED001B8231 /* Extensions */,
 				087B8963292F44470029FAA2 /* Services */,
-				087ECEE3292E7FB4005A97A3 /* AppDelegate.swift */,
-				087ECEE5292E7FB4005A97A3 /* SceneDelegate.swift */,
-				087ECEEC292E7FB6005A97A3 /* Assets.xcassets */,
-				087ECEEE292E7FB6005A97A3 /* LaunchScreen.storyboard */,
-				087ECEF1292E7FB6005A97A3 /* Info.plist */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -238,14 +254,95 @@
 				08AC4FF129326F8400253C3D /* DetailViewPresenter.swift */,
 				08AC4FF329326F8F00253C3D /* DetailViewOutput.swift */,
 				08AC4FF529326FEC00253C3D /* DetailViewInput.swift */,
-				08AC4FF72932703700253C3D /* DetailModuleConfigurator.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		08D938D129373CC2001C9D7B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				08D938D229373CD9001C9D7B /* LocationSearchTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		08D938D429376C51001C9D7B /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				08D938D629376CA6001C9D7B /* SearchModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		08D938D529376C77001C9D7B /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				084E00CB292F79DA00F83E3B /* MainModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		08D938D829376CC1001C9D7B /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				08D938D929376CD3001C9D7B /* DetailModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		08D938DB29376D2C001C9D7B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				08AC4FEE2932421800253C3D /* Location.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		08D938DC29376EAD001C9D7B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				087ECEF1292E7FB6005A97A3 /* Info.plist */,
+				087ECEEE292E7FB6005A97A3 /* LaunchScreen.storyboard */,
+				087ECEEC292E7FB6005A97A3 /* Assets.xcassets */,
+				087ECEE5292E7FB4005A97A3 /* SceneDelegate.swift */,
+				087ECEE3292E7FB4005A97A3 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		08D938DD29376F0B001C9D7B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				08D938E429376F9D001C9D7B /* MainRouterInput.swift */,
+				08D938E82937719F001C9D7B /* MainRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		08D938DE29376F12001C9D7B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				08D938E229376F91001C9D7B /* DetailRouterInput.swift */,
+				08D938EC29378065001C9D7B /* DetailRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		08D938DF29376F1B001C9D7B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				08D938E029376F7B001C9D7B /* SearchRouterInput.swift */,
+				08D938EA29377BCF001C9D7B /* SearchRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		08F2D1922936131400AD6AA4 /* SearchModule */ = {
 			isa = PBXGroup;
 			children = (
+				08D938DF29376F1B001C9D7B /* Router */,
+				08D938DB29376D2C001C9D7B /* Model */,
+				08D938D429376C51001C9D7B /* Configurator */,
 				08F2D194293613EB00AD6AA4 /* View */,
 				08F2D1932936131F00AD6AA4 /* Presenter */,
 			);
@@ -265,6 +362,8 @@
 		08F2D194293613EB00AD6AA4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				08D938D129373CC2001C9D7B /* Cell */,
+				083C345B29311E730066BE22 /* LocationSearchTable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,8 +442,11 @@
 				083C34522930BD920066BE22 /* DetailViewController.swift in Sources */,
 				08F2D1912935E22600AD6AA4 /* DateConverter.swift in Sources */,
 				087B8977292F5DEE0029FAA2 /* NetworkService.swift in Sources */,
+				08D938D729376CA6001C9D7B /* SearchModuleConfigurator.swift in Sources */,
+				08D938ED29378065001C9D7B /* DetailRouter.swift in Sources */,
 				083C34552930BF3C0066BE22 /* TemperatureTableViewCell.swift in Sources */,
 				084E00CC292F79DB00F83E3B /* MainModuleConfigurator.swift in Sources */,
+				08D938DA29376CD3001C9D7B /* DetailModuleConfigurator.swift in Sources */,
 				08AC4FF229326F8400253C3D /* DetailViewPresenter.swift in Sources */,
 				087ECEE8292E7FB4005A97A3 /* MainViewController.swift in Sources */,
 				08AC4FEF2932421800253C3D /* Location.swift in Sources */,
@@ -353,18 +455,24 @@
 				08C3E55029333EC900CEE490 /* SearchTableViewPresenter.swift in Sources */,
 				087D4C762934B909001B8231 /* IconWithString.swift in Sources */,
 				087B897B292F5E250029FAA2 /* NetworkDataFetcher.swift in Sources */,
+				08D938E329376F91001C9D7B /* DetailRouterInput.swift in Sources */,
 				08AC4FF629326FEC00253C3D /* DetailViewInput.swift in Sources */,
 				087B8974292F48520029FAA2 /* CurrentWeather.swift in Sources */,
 				08AC4FF429326F8F00253C3D /* DetailViewOutput.swift in Sources */,
+				08D938E92937719F001C9D7B /* MainRouter.swift in Sources */,
+				08D938D329373CD9001C9D7B /* LocationSearchTableViewCell.swift in Sources */,
 				087B8979292F5E100029FAA2 /* DataFetcherService.swift in Sources */,
 				087ECEE4292E7FB4005A97A3 /* AppDelegate.swift in Sources */,
+				08D938EB29377BCF001C9D7B /* SearchRouter.swift in Sources */,
 				083C344E293096F80066BE22 /* LocationManager.swift in Sources */,
 				08387035292F73E60084E606 /* MainViewInput.swift in Sources */,
 				083C345C29311E730066BE22 /* LocationSearchTable.swift in Sources */,
+				08D938E729377143001C9D7B /* ModuleTransitionable.swift in Sources */,
+				08D938E129376F7B001C9D7B /* SearchRouterInput.swift in Sources */,
 				08C3E54C29333EAE00CEE490 /* SearchTableViewInput.swift in Sources */,
 				087ECEE6292E7FB4005A97A3 /* SceneDelegate.swift in Sources */,
 				08387037292F73F20084E606 /* MainViewOutput.swift in Sources */,
-				08AC4FF82932703700253C3D /* DetailModuleConfigurator.swift in Sources */,
+				08D938E529376F9D001C9D7B /* MainRouterInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +613,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C5XCRHH65R;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -533,7 +641,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C5XCRHH65R;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";

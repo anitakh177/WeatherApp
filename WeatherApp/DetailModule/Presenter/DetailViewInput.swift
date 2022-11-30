@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DetailViewInput: AnyObject {
-    
+    func reloadData()
 }

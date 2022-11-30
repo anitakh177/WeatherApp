@@ -18,5 +18,6 @@ final class DetailViewPresenter: DetailViewOutput {
     
     required init(weather: CurrentWeather) {
         self.weather = weather
+        self.view?.reloadData()
     }
 }

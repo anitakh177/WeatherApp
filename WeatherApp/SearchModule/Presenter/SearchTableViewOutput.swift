@@ -9,10 +9,9 @@ import Foundation
 import CoreLocation
 
 protocol SearchTableViewOutput {
-    init(view: SearchTableViewInput, dataFetcherService: DataFetcherService)
-    
+    init(view: SearchTableViewInput, dataFetcherService: DataFetcherService)    
     var currentWeather: CurrentWeather? { get set }
     func loadData(for coord: CLLocationCoordinate2D)
-  
+    func pushDetailVC(weather: CurrentWeather) 
      
 }

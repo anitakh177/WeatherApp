@@ -99,6 +99,15 @@ class TemperatureTableViewCell: UITableViewCell {
         
        
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        iconImageView.image = nil
+        cityLabel.text = nil
+        descriptionLabel.text = nil
+        temperatureLabel.text = nil
+        highAndLowTemp.text = nil
+    }
 
 }
 
