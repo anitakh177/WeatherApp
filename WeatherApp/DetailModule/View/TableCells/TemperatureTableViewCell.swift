@@ -93,11 +93,7 @@ class TemperatureTableViewCell: UITableViewCell {
         let tempHigh = String(format: "%.f", weather.main.tempMax)
         let tempLow = String(format: "%.f", weather.main.tempMin)
         highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
-        
-       
-        
-        
-       
+    
     }
     
     override func prepareForReuse() {

@@ -49,22 +49,45 @@ private extension DetailViewController {
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 500
+       // tableView.rowHeight = 500
         tableView.register(TemperatureTableViewCell.self, forCellReuseIdentifier: "\(TemperatureTableViewCell.self)")
+        tableView.register(DetailsTableViewCell.self, forCellReuseIdentifier: "\(DetailsTableViewCell.self)")
     }
     
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
-        cell?.configureDataSource(weather: presenter.weather)
-        return cell ?? UITableViewCell()
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
+            cell?.configureDataSource(weather: presenter.weather)
+            return cell ?? UITableViewCell()
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailsTableViewCell.self)", for: indexPath) as? DetailsTableViewCell
+            cell?.updateCell(with: presenter.weather)
+            return cell ?? UITableViewCell()
+            
+        default:
+            return UITableViewCell()
+        }
+       
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 500
+        case 1:
+            return 110
+        default:
+            return 150
+        }
     }
     
     
