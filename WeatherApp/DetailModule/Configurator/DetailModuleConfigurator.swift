@@ -9,8 +9,9 @@ import Foundation
 
 final class DetailModuleConfigurator {
     func configure(weather: CurrentWeather) -> DetailViewController {
+        let dataFetchService = DataFetcherService()
         let view = DetailViewController()
-        let presenter = DetailViewPresenter(weather: weather)
+        let presenter = DetailViewPresenter(weather: weather, dataFetchService: dataFetchService)
         
         view.presenter = presenter
         presenter.view = view

@@ -11,7 +11,7 @@ import CoreLocation
 final class DataFetcherService {
 
 private let apiKey = "&appid=bc09970cb87005d86c068ee8f8b88dde"
-private let baseURL = "https://api.openweathermap.org/data/2.5/weather?"
+private let baseURL = "https://api.openweathermap.org/data/2.5/"
     
     private enum Units {
        static let metric = "&units=metric"
@@ -33,9 +33,16 @@ func searchCity(text: String, completion: @escaping(CurrentWeather?) -> Void) {
     func searchCoordinates(coord: CLLocationCoordinate2D, comletion: @escaping(CurrentWeather?) -> Void) {
         let lat = "lat=\(coord.latitude)"
         let lon = "lon=\(coord.longitude)"
-        let urlSearch = String(baseURL+lat+"&"+lon+apiKey+Units.metric)
+        let urlSearch = String(baseURL+"weather?"+lat+"&"+lon+apiKey+Units.metric)
         dataFetcher.fetchGenericJSONData(urlString: urlSearch, response: comletion)
-        
+    
+    }
+    
+    func forecast(latitude: Double, longitude: Double, completion: @escaping(Forecast?) -> Void) {
+        let lat = "lat=\(latitude)"
+        let lon = "lon=\(longitude)"
+        let urlSearch = String(baseURL+"forecast?"+lat+"&"+lon+apiKey+Units.metric)
+        dataFetcher.fetchGenericJSONData(urlString: urlSearch, response: completion)
     }
     
 }

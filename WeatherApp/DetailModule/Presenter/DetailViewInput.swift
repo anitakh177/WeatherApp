@@ -8,5 +8,6 @@
 import Foundation
 
 protocol DetailViewInput: AnyObject {
+    func updateForecast(_ model: [ForecastViewModel])
     func reloadData()
 }

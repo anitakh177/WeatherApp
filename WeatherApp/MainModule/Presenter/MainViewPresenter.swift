@@ -24,7 +24,6 @@ class MainViewPresenter: MainViewOutput {
     func loadData(for coord: CLLocationCoordinate2D) {
         dataFetcherService.searchCoordinates(coord: coord) { weather in
             self.currentWeather = weather
-            print(self.currentWeather)
             self.view?.reloadData()
         }
     }

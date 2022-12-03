@@ -8,8 +8,9 @@
 import Foundation
 
 protocol DetailViewOutput: AnyObject {
-    
+    func loadForecast()
     var weather: CurrentWeather { get }
-    init(weather: CurrentWeather)
+    var forecast: Forecast? { get }
+    init(weather: CurrentWeather, dataFetchService: DataFetcherService)
     
 }

@@ -14,6 +14,11 @@ struct DateConverter {
         self.timezone = Double(timezone)
     }
     
+    func convertDateFromUTC(string: String) -> Date {
+        let utcDate = convertDate(from: string)
+        return utcDate.addingTimeInterval(self.timezone)
+    }
+    
     func convertDateFromUTC(string: Int) -> Date {
         
         let utcDate = convertDate(from: String(string))
@@ -22,7 +27,7 @@ struct DateConverter {
     
     private func convertDate(from string: String) -> Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter.date(from: string) ?? Date()
     }
     

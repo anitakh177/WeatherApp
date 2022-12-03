@@ -93,15 +93,27 @@ private extension MainViewController {
     }
     
     func configureTableView() {
-        view.addSubview(tableView)
-        tableView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 100
         tableView.register(CurrentWeatherTableViewCell.self, forCellReuseIdentifier: "\(CurrentWeatherTableViewCell.self)")
+        setTableConstraints()
     }
+                                    
+    func setTableConstraints() {
+     view.addSubview(tableView)
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+                                        
+     NSLayoutConstraint.activate([
+                            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+                            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                    ])
+        }
     
+                                 
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
