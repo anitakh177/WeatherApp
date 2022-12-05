@@ -12,7 +12,8 @@ class TemperatureTableViewCell: UITableViewCell {
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 30, weight: .medium)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 35, weight: .regular)
         return label
     }()
     
@@ -24,24 +25,25 @@ class TemperatureTableViewCell: UITableViewCell {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "It's cloudy"
+        label.textColor = .white
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 30, weight: .medium)
+        label.font = .systemFont(ofSize: 25, weight: .regular)
         return label
     }()
     
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel()
-        label.text = "29"
+        label.textColor = .white
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = .systemFont(ofSize: 50, weight: .regular)
         return label
     }()
     
     private lazy var highAndLowTemp: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.font = .systemFont(ofSize: 28, weight: .regular)
         return label
     }()
     
@@ -74,7 +76,8 @@ class TemperatureTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40)
+            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     

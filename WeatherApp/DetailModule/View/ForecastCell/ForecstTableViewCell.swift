@@ -18,19 +18,26 @@ final class ForecstTableViewCell: UITableViewCell {
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
+        label.textColor = .white
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
     
     private lazy var dayOfWeek: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .white
+        label.textAlignment = .right
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.alpha = 0.7
+        label.textColor = .white
+        label.textAlignment = .right
         return label
     }()
     
@@ -41,18 +48,13 @@ final class ForecstTableViewCell: UITableViewCell {
         return stack
     }()
     
-    private lazy var horizontalStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [iconImageView, temperatureLabel, verticalStack])
-        stack.axis = .horizontal
-        stack.distribution = .fillProportionally
-        return stack
-    }()
-    
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(horizontalStack)
+        contentView.backgroundColor = .clear
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(temperatureLabel)
+        contentView.addSubview(verticalStack)
     }
     
     required init?(coder: NSCoder) {
@@ -61,6 +63,8 @@ final class ForecstTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.backgroundColor = UIColor(named: "dayColor")
+        contentView.alpha = 0.8
         setConstraints()
         
     }
@@ -68,7 +72,7 @@ final class ForecstTableViewCell: UITableViewCell {
     func configureDataSource(forecast: ForecastViewModel) {
         let tempHigh = String(format: "%.f", forecast.maxTemperature)
         let tempLow = String(format: "%.f", forecast.minTemperature)
-        temperatureLabel.text = " H: \(tempHigh)\nL:  \(tempLow)"
+        temperatureLabel.text = " H: \(tempHigh)\nL: \(tempLow)"
         dayOfWeek.text = forecast.date.getDayOfWeek()
         dateLabel.text = forecast.date.getDate()
         
@@ -86,13 +90,23 @@ final class ForecstTableViewCell: UITableViewCell {
 private extension ForecstTableViewCell {
     
     func setConstraints() {
-        horizontalStack.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            horizontalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            horizontalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            horizontalStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            horizontalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            iconImageView.trailingAnchor.constraint(equalTo: temperatureLabel.leadingAnchor, constant: -4),
+            iconImageView.widthAnchor.constraint(equalToConstant: 100),
+            iconImageView.heightAnchor.constraint(equalToConstant: 70),
+            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            temperatureLabel.trailingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: -4),
+            temperatureLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            verticalStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            verticalStack.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
 }

@@ -17,7 +17,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Views
     
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +36,17 @@ private extension DetailViewController {
     }
     
     func configureNavigationBar() {
-        let leftNavBar = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
-        leftNavBar.tintColor = .black
-        navigationItem.leftBarButtonItem = leftNavBar
+        let leftItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(close))
+        leftItem.tintColor = .white
+        navigationItem.leftBarButtonItem = leftItem
+        
+        let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addToFav))
+        rightItem.tintColor = .white
+        navigationItem.rightBarButtonItem = rightItem
+    }
+    
+    @objc func addToFav() {
+        presenter.save()
     }
     
     @objc func close() {
@@ -46,10 +54,11 @@ private extension DetailViewController {
     }
     
     func configureTableView() {
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = UIColor(named: "dayColor")
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-       // tableView.rowHeight = 500
+       
         tableView.register(TemperatureTableViewCell.self, forCellReuseIdentifier: "\(TemperatureTableViewCell.self)")
         tableView.register(DetailsTableViewCell.self, forCellReuseIdentifier: "\(DetailsTableViewCell.self)")
         tableView.register(ForecstTableViewCell.self, forCellReuseIdentifier: "\(ForecstTableViewCell.self)")
@@ -73,53 +82,72 @@ private extension DetailViewController {
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        } else {
+        switch section {
+        case 0:
+            return 1
+            
+        case 1:
+            return 1
+        case 2:
             return forecastViewModel.count
+            
+        default:
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
-                cell?.configureDataSource(weather: presenter.weather)
-                return cell ?? UITableViewCell()
-                
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailsTableViewCell.self)", for: indexPath) as? DetailsTableViewCell
-                cell?.updateCell(with: presenter.weather)
-                return cell ?? UITableViewCell()
-                
-            default:
-                return UITableViewCell()
-            }
-        } else {
+        
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
+            cell?.configureDataSource(weather: presenter.weather)
+            cell?.backgroundColor = .clear
+            cell?.selectionStyle = .none
+            return cell ?? UITableViewCell()
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailsTableViewCell.self)", for: indexPath) as? DetailsTableViewCell
+            cell?.updateCell(with: presenter.weather)
+            cell?.selectionStyle = .none
+            return cell ?? UITableViewCell()
+            
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(ForecstTableViewCell.self)", for: indexPath) as? ForecstTableViewCell
             cell?.configureDataSource(forecast: forecastViewModel[indexPath.row])
+            cell?.selectionStyle = .none
             return cell ?? UITableViewCell()
+            
+        default:
+            return UITableViewCell()
+            }
         }
-       
-    }
+      
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                return 500
+                return 450
             } else {
                 return 110
             }
         default:
-            return 110
+            return 100
         }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 2 {
+            return "5-DAY FORECAST"
+        }
+        return ""
     }
 
 }

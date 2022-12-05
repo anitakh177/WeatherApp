@@ -8,6 +8,12 @@
 import UIKit
 
 class CurrentWeatherTableViewCell: UITableViewCell {
+    
+    private lazy var iconImageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
    
     private lazy var myLocationLabel: UILabel = {
         let label = UILabel()
@@ -34,7 +40,7 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
-        label.font = .systemFont(ofSize: 30, weight: .bold)
+        label.font = .systemFont(ofSize: 50, weight: .semibold)
         return label
     }()
     
@@ -56,13 +62,14 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     }
     
     private func setConstraints() {
-        
+        contentView.addSubview(iconImageView)
         contentView.addSubview(myLocationLabel)
         contentView.addSubview(cityLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(tempLabel)
         contentView.addSubview(highAndLowTemp)
         
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
         myLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -75,25 +82,41 @@ class CurrentWeatherTableViewCell: UITableViewCell {
             myLocationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             myLocationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
-            cityLabel.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 40),
-            cityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -60),
+            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cityLabel.topAnchor.constraint(equalTo: myLocationLabel.bottomAnchor, constant: 5),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             descriptionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20),
             
+            
             tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
+            iconImageView.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: -16),
+            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 120),
+            iconImageView.heightAnchor.constraint(equalToConstant: 80),
+            
             highAndLowTemp.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: 20)
+            highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor)
             
         ])
         myLocationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     }
     
     func configureDataSource(weather: CurrentWeather) {
+        
+        let dateConverter = DateConverter(timezone: weather.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
+        let icon = IconWithString()
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: weather.timezone)
+     
+        let image = icon.getIcon(with: weather.weather.first!.id, isDay: isDay)
+        iconImageView.image = UIImage(named: image)
+        
+        
         cityLabel.text = weather.name
         descriptionLabel.text = weather.weather.first!.main
         tempLabel.text = String(format: "%.f", weather.main.temp) + "°"

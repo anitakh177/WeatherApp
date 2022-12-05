@@ -33,6 +33,9 @@ final class DetailsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .clear
+        contentView.backgroundColor = UIColor(named: "dayColor")
+        contentView.alpha = 0.9
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "\(DetailsCollectionViewCell.self)")
         
     }
@@ -83,14 +86,18 @@ extension DetailsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
           switch indexPath.item {
           case 0:
               let number = String(format: "%.f", model!.main.feelsLike)
+              cell?.backgroundColor = .clear
               cell?.configureDataSource(icon: UIImage(systemName: "thermometer.medium")!, title: "Feels Like", number: "\(number)°")
 
           case 1:
+              cell?.backgroundColor = .clear
               cell?.configureDataSource(icon: UIImage(systemName: "humidity")!, title: "Humidity", number: "\(model?.main.humidity ?? 0)%")
           case 2:
+              cell?.backgroundColor = .clear
               cell?.configureDataSource(icon: UIImage(systemName: "cloud")!, title: "Clouds", number: "\(model?.clouds.all ?? 0)")
           
           case 3:
+              cell?.backgroundColor = .clear
               let number = String(format: "%.f", model!.wind.speed)
               cell?.configureDataSource(icon: UIImage(systemName: "wind")!, title: "Wind", number: number)
               

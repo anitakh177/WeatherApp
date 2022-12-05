@@ -38,18 +38,14 @@ struct DateConverter {
           bySettingHour: 8,
           minute: 0,
           second: 0,
-          of: now)!.addingTimeInterval(TimeInterval(timeZone))
+          of: now)!
 
         let four_thirty_today = calendar.date(
           bySettingHour: 16,
           minute: 30,
           second: 0,
-          of: now)!.addingTimeInterval(TimeInterval(timeZone))
+          of: now)!
         
-        print(now)
-        print(eight_today)
-        print(four_thirty_today)
-
         if now >= eight_today &&
           now <= four_thirty_today
         {

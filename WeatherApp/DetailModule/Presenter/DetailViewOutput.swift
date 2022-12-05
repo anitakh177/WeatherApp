@@ -11,6 +11,7 @@ protocol DetailViewOutput: AnyObject {
     func loadForecast()
     var weather: CurrentWeather { get }
     var forecast: Forecast? { get }
+    func save()
     init(weather: CurrentWeather, dataFetchService: DataFetcherService)
     
 }

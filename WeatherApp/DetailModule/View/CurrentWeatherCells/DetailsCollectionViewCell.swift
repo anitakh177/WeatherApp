@@ -12,17 +12,24 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.alpha = 0.8
+        image.tintColor = .white
         return image
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
+        label.alpha = 0.8
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textAlignment = .center
         return label
     }()
     
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .center
         return label
     }()
@@ -51,7 +58,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     
     func configureDataSource(icon: UIImage, title: String, number: String) {
         iconImageView.image = icon
-        titleLabel.text = title
+        titleLabel.text = title.uppercased()
         numberLabel.text = number
     }
     

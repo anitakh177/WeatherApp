@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0805475E2939CF0C00CF1542 /* ForecstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805475D2939CF0C00CF1542 /* ForecstTableViewCell.swift */; };
 		080547602939D8A100CF1542 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805475F2939D8A100CF1542 /* ForecastViewModel.swift */; };
+		080BF809293E4CC500C13E64 /* FavoriteCityStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080BF808293E4CC500C13E64 /* FavoriteCityStorageService.swift */; };
 		08387035292F73E60084E606 /* MainViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387034292F73E60084E606 /* MainViewInput.swift */; };
 		08387037292F73F20084E606 /* MainViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387036292F73F20084E606 /* MainViewOutput.swift */; };
 		08387039292F73FC0084E606 /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387038292F73FC0084E606 /* MainViewPresenter.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		0805475D2939CF0C00CF1542 /* ForecstTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecstTableViewCell.swift; sourceTree = "<group>"; };
 		0805475F2939D8A100CF1542 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
+		080BF808293E4CC500C13E64 /* FavoriteCityStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCityStorageService.swift; sourceTree = "<group>"; };
 		08387034292F73E60084E606 /* MainViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewInput.swift; sourceTree = "<group>"; };
 		08387036292F73F20084E606 /* MainViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewOutput.swift; sourceTree = "<group>"; };
 		08387038292F73FC0084E606 /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
@@ -119,6 +121,14 @@
 				0805475D2939CF0C00CF1542 /* ForecstTableViewCell.swift */,
 			);
 			path = ForecastCell;
+			sourceTree = "<group>";
+		};
+		080BF807293E485D00C13E64 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				080BF808293E4CC500C13E64 /* FavoriteCityStorageService.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		08387030292F73B20084E606 /* MainModule */ = {
@@ -211,6 +221,7 @@
 		087B8963292F44470029FAA2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				080BF807293E485D00C13E64 /* Storage */,
 				083C344C293095D40066BE22 /* Location Manager */,
 				087B8975292F5DDC0029FAA2 /* NetworkManager */,
 			);
@@ -503,6 +514,7 @@
 				08D938E92937719F001C9D7B /* MainRouter.swift in Sources */,
 				08D938D329373CD9001C9D7B /* LocationSearchTableViewCell.swift in Sources */,
 				087B8979292F5E100029FAA2 /* DataFetcherService.swift in Sources */,
+				080BF809293E4CC500C13E64 /* FavoriteCityStorageService.swift in Sources */,
 				087ECEE4292E7FB4005A97A3 /* AppDelegate.swift in Sources */,
 				08D938EB29377BCF001C9D7B /* SearchRouter.swift in Sources */,
 				083C344E293096F80066BE22 /* LocationManager.swift in Sources */,

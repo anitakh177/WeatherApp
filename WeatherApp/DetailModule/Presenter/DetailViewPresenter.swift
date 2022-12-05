@@ -9,6 +9,8 @@ import Foundation
 import CoreLocation
 
 final class DetailViewPresenter: DetailViewOutput {
+   
+    
     
     //MARK: - Properties
     
@@ -51,7 +53,6 @@ final class DetailViewPresenter: DetailViewOutput {
             firstDate.merge([dayOfWeek: dateConverter.convertDateFromUTC(string: item.dtTxt)]) { (first, second) in first }
             firstIcon.merge([dayOfWeek: item.weather[0].id]) { (first, second) in first }
     
-            print(dayOfWeek)
         }
         
         var dailyWeatherItems = [ForecastViewModel]()
@@ -59,12 +60,16 @@ final class DetailViewPresenter: DetailViewOutput {
             let dailyWeatherItem = ForecastViewModel(icon: firstIcon[key]!, maxTemperature: maxTemperature[key]!, minTemperature: minTemperature[key]!, date: firstDate[key]!)
             
             dailyWeatherItems.append(dailyWeatherItem)
-            print(dailyWeatherItems)
         }
         return dailyWeatherItems.sorted(by: { (first, second) in
             first.date < second.date
             })
         }
+    
+    func save() {
+        let storageService = FavoriteCityStorageService()
+        storageService.saveCoordinates(coordinates: weather.coord)
+    }
      
     }
     

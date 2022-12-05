@@ -11,7 +11,7 @@ import CoreLocation
 class MainViewController: UIViewController, ModuleTransitionable {
     
     // MARK: - Views
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
  
     
     private var serachController = UISearchController()
@@ -29,7 +29,7 @@ class MainViewController: UIViewController, ModuleTransitionable {
        
         configureView()
         attemptLocationAccess()
-        
+        presenter.loadCoordinatesFromStorage()
     }
 
 }

@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 class MainViewPresenter: MainViewOutput {
-    
+    var savedCoordinates: [Coord]?
     var view: MainViewInput?
     let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
@@ -42,6 +42,12 @@ class MainViewPresenter: MainViewOutput {
    
     func pushSearchVC() {
         router?.showSearchModule()
+    }
+    
+    func loadCoordinatesFromStorage() {
+       let storage = FavoriteCityStorageService()
+       savedCoordinates = storage.loadCoordinates()
+        print(savedCoordinates)
     }
     
       
