@@ -15,25 +15,18 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         return image
     }()
    
-    private lazy var myLocationLabel: UILabel = {
-        let label = UILabel()
-        label.text = "My Location"
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        return label
-    }()
-    
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = 2
+        label.font = .systemFont(ofSize: 22, weight: .semibold)
         return label
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
     
@@ -62,33 +55,28 @@ class CurrentWeatherTableViewCell: UITableViewCell {
     }
     
     private func setConstraints() {
+        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.7)
         contentView.addSubview(iconImageView)
-        contentView.addSubview(myLocationLabel)
         contentView.addSubview(cityLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(tempLabel)
         contentView.addSubview(highAndLowTemp)
         
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        myLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         highAndLowTemp.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            
-            myLocationLabel.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: 40),
-            myLocationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            myLocationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            
-            cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -60),
-            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            cityLabel.topAnchor.constraint(equalTo: myLocationLabel.bottomAnchor, constant: 5),
-            
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            descriptionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20),
+    
+            cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -16),
+            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+           
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            descriptionLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -16),
+            descriptionLabel.topAnchor.constraint(greaterThanOrEqualTo: cityLabel.bottomAnchor, constant: 10),
             
             
             tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -103,7 +91,9 @@ class CurrentWeatherTableViewCell: UITableViewCell {
             highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor)
             
         ])
-        myLocationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        cityLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+       
     }
     
     func configureDataSource(weather: CurrentWeather) {

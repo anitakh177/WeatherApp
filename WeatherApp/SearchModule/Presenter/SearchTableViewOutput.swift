@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import CoreLocation
 
 protocol SearchTableViewOutput {
     init(view: SearchTableViewInput, dataFetcherService: DataFetcherService)    
     var currentWeather: CurrentWeather? { get set }
-    func loadData(for coord: CLLocationCoordinate2D)
+    func loadData(for lat: Double, long: Double)
     func pushDetailVC(weather: CurrentWeather) 
      
 }

@@ -23,8 +23,8 @@ class SearchTableViewPresenter: SearchTableViewOutput {
 
     }
     
-    func loadData(for coord: CLLocationCoordinate2D) {
-        dataFetcherService.searchCoordinates(coord: coord) { [weak self] weather in
+    func loadData(for lat: Double, long: Double) {
+        dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { [weak self] weather in
             guard let self = self else { return }
             self.currentWeather = weather
             self.view?.reloadData()

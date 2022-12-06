@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 
 class MainViewPresenter: MainViewOutput {
+    var favWeather = [CurrentWeather]()
     var savedCoordinates: [Coord]?
     var view: MainViewInput?
     let dataFetcherService: DataFetcherService
@@ -18,11 +19,10 @@ class MainViewPresenter: MainViewOutput {
     required init(view: MainViewInput, dataFetcherService: DataFetcherService) {
         self.view = view
         self.dataFetcherService = dataFetcherService
-
     }
     
-    func loadData(for coord: CLLocationCoordinate2D) {
-        dataFetcherService.searchCoordinates(coord: coord) { weather in
+    func loadData(lat: Double, long: Double) {
+        dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { weather in
             self.currentWeather = weather
             self.view?.reloadData()
         }
@@ -47,7 +47,15 @@ class MainViewPresenter: MainViewOutput {
     func loadCoordinatesFromStorage() {
        let storage = FavoriteCityStorageService()
        savedCoordinates = storage.loadCoordinates()
-        print(savedCoordinates)
+        savedCoordinates?.forEach { item in
+            dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
+                self?.favWeather.append(weather!)
+                self?.view?.reloadData()
+              
+            }
+            
+        }
+        
     }
     
       

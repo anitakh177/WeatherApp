@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 final class DataFetcherService {
 
@@ -30,9 +29,9 @@ func searchCity(text: String, completion: @escaping(CurrentWeather?) -> Void) {
         dataFetcher.fetchGenericJSONData(urlString: urlSearch, response: completion)
     }
     
-    func searchCoordinates(coord: CLLocationCoordinate2D, comletion: @escaping(CurrentWeather?) -> Void) {
-        let lat = "lat=\(coord.latitude)"
-        let lon = "lon=\(coord.longitude)"
+    func searchCoordinates(latitude: Double, longitude: Double, comletion: @escaping(CurrentWeather?) -> Void) {
+        let lat = "lat=\(latitude)"
+        let lon = "lon=\(longitude)"
         let urlSearch = String(baseURL+"weather?"+lat+"&"+lon+apiKey+Units.metric)
         dataFetcher.fetchGenericJSONData(urlString: urlSearch, response: comletion)
     

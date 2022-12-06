@@ -47,6 +47,7 @@ private extension DetailViewController {
     
     @objc func addToFav() {
         presenter.save()
+        NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
     }
     
     @objc func close() {

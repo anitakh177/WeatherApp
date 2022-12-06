@@ -34,8 +34,7 @@ final class DetailsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .clear
-        contentView.backgroundColor = UIColor(named: "dayColor")
-        contentView.alpha = 0.9
+        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.9)
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "\(DetailsCollectionViewCell.self)")
         
     }

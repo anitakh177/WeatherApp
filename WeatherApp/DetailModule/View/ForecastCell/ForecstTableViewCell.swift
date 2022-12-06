@@ -63,8 +63,8 @@ final class ForecstTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.backgroundColor = UIColor(named: "dayColor")
-        contentView.alpha = 0.8
+        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.9)
+       // contentView.alpha = 0.8
         setConstraints()
         
     }

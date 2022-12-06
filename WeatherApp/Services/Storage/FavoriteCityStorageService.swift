@@ -8,10 +8,12 @@
 import Foundation
 
 final class FavoriteCityStorageService {
+  
+   var savedCoord: [Coord] = []
     
-    var savedCoord: [Coord] = []
-    
-   
+    init() {
+    //    loadCoordinates()
+    }
     //MARK: Save and load data
     
     func documentsDirectory() -> URL {
@@ -42,17 +44,19 @@ final class FavoriteCityStorageService {
     func loadCoordinates() -> [Coord] {
         
         let path = dataFilePath()
+       // var savedCoord = [Coord]()
         
         if let data = try? Data(contentsOf: path) {
             let decoder = PropertyListDecoder()
             do {
-              savedCoord = try decoder.decode([Coord].self, from: data)
+                savedCoord = try decoder.decode([Coord].self, from: data)
+               // return savedCoord
             } catch {
                 print("Error decoding item array: \(error.localizedDescription)")
             }
         }
         
-        return savedCoord
+       return savedCoord
     }
     
     

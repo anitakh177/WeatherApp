@@ -26,15 +26,28 @@ class MainViewController: UIViewController, ModuleTransitionable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+      //
         configureView()
         attemptLocationAccess()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(notificateArray), name: Notification.Name("reload"), object: nil)
         presenter.loadCoordinatesFromStorage()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
 }
 
 extension MainViewController: MainViewInput {
+    @objc func notificateArray() {
+        presenter.loadCoordinatesFromStorage()
+        tableView.reloadData()
+    }
+    
     func reloadData() {
         tableView.reloadData()
     }
@@ -117,28 +130,65 @@ private extension MainViewController {
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     
-        return 1
+        if section == 0 {
+            return 1
+        } else {
+            return  presenter.favWeather.count
+        }
     }
     
     
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
-        if let weather = presenter.currentWeather {
-            cell?.configureDataSource(weather: weather)
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+            if let weather = presenter.currentWeather {
+                cell?.configureDataSource(weather: weather)
+                
+                }
+            return cell ?? UITableViewCell()
             
-            }
-        return cell ?? UITableViewCell()
-       
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+             let weather = presenter.favWeather
+                cell?.configureDataSource(weather: weather[indexPath.row])
+                
+                
+            return cell ?? UITableViewCell()
+            
+        default:
+            return UITableViewCell()
+        }
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-         if let weather = presenter?.currentWeather {
-             presenter.pushDetailVC(weather: weather)
+         if indexPath.section == 0 {
+             if let weather = presenter?.currentWeather {
+                 presenter.pushDetailVC(weather: weather)
+             }
+         } else {
+             if let weather = presenter?.favWeather {
+                 presenter.pushDetailVC(weather: weather[indexPath.row])
+             }
          }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "CURRENT LOCATION"
+        case 1:
+            return "FAVORITE CITY"
+        default:
+            return ""
+        }
     }
 }
 
@@ -149,7 +199,7 @@ extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            presenter.loadData(for: location.coordinate)
+            presenter.loadData(lat: location.coordinate.latitude, long: location.coordinate.longitude)
 
         }
     }

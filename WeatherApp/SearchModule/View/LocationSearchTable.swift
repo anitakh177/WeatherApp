@@ -116,7 +116,7 @@ extension LocationSearchTable {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             guard let locations = locations else { return }
             let coordinate = locations[indexPath.row].coordinates
-            self.presenter?.loadData(for: coordinate!)
+        self.presenter?.loadData(for: coordinate!.latitude, long: coordinate!.longitude)
             
             if let weather = presenter?.currentWeather {
                 presenter?.pushDetailVC(weather: weather)
