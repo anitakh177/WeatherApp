@@ -82,13 +82,9 @@ class TemperatureTableViewCell: UITableViewCell {
     }
     
     func configureDataSource(weather: CurrentWeather) {
+        let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
+        let image = icon.getIcon(with: weather.weather.first!.id)
         
-        let dateConverter = DateConverter(timezone: weather.timezone)
-        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
-        let icon = IconWithString()
-        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: weather.timezone)
-     
-        let image = icon.getIcon(with: weather.weather.first!.id, isDay: isDay)
         iconImageView.image = UIImage(named: image)
         cityLabel.text = weather.name
         descriptionLabel.text = weather.weather.first!.main

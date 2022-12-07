@@ -51,7 +51,6 @@ final class ForecstTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .clear
         contentView.addSubview(iconImageView)
         contentView.addSubview(temperatureLabel)
         contentView.addSubview(verticalStack)
@@ -63,10 +62,12 @@ final class ForecstTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.9)
-       // contentView.alpha = 0.8
         setConstraints()
-        
+    }
+    
+    func configureBackgroundColor(weather: CurrentWeather) {
+        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
+        contentView.backgroundColor = getColor.getBackgroundColor().withAlphaComponent(0.9)
     }
     
     func configureDataSource(forecast: ForecastViewModel) {
@@ -76,12 +77,10 @@ final class ForecstTableViewCell: UITableViewCell {
         dayOfWeek.text = forecast.date.getDayOfWeek()
         dateLabel.text = forecast.date.getDate()
         
-    
-        let icon = IconWithString()
-        let image = icon.getIcon(with: forecast.icon, isDay: true)
+        let icon = IconWithString(timezone: 0, date: 0)
+        let image = icon.getIcon(with: forecast.icon)
         iconImageView.image = UIImage(named: image)
         
-    
     }
 }
 

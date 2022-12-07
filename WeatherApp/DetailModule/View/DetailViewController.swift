@@ -55,7 +55,9 @@ private extension DetailViewController {
     }
     
     func configureTableView() {
-        tableView.backgroundColor = UIColor(named: "dayColor")
+        let getColor = GetBackgroundColor(timezone: presenter.weather.timezone, date: presenter.weather.dt)
+        
+        tableView.backgroundColor = getColor.getBackgroundColor()
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
@@ -103,7 +105,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(TemperatureTableViewCell.self)", for: indexPath) as? TemperatureTableViewCell
@@ -116,11 +117,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailsTableViewCell.self)", for: indexPath) as? DetailsTableViewCell
             cell?.updateCell(with: presenter.weather)
             cell?.selectionStyle = .none
+            
             return cell ?? UITableViewCell()
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(ForecstTableViewCell.self)", for: indexPath) as? ForecstTableViewCell
             cell?.configureDataSource(forecast: forecastViewModel[indexPath.row])
+            cell?.configureBackgroundColor(weather: presenter.weather)
             cell?.selectionStyle = .none
             return cell ?? UITableViewCell()
             
@@ -150,6 +153,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return ""
     }
+    
 
 }
 

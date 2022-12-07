@@ -18,11 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let confi = MainModuleConfigurator()
         let viewContr = confi.configureMainModule()
         let navCon = UINavigationController(rootViewController: viewContr)
-       // let navCon = UINavigationController(rootViewController: DetailViewController())
         window?.rootViewController = navCon
         window?.makeKeyAndVisible()
         
-       print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+      
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

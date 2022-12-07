@@ -8,12 +8,13 @@
 import Foundation
 
 final class FavoriteCityStorageService {
-  
-   var savedCoord: [Coord] = []
+    
+    var savedCoordinates: [Coord] = []
     
     init() {
-    //    loadCoordinates()
+        loadCoordinates()
     }
+  
     //MARK: Save and load data
     
     func documentsDirectory() -> URL {
@@ -26,37 +27,68 @@ final class FavoriteCityStorageService {
         return documentsDirectory().appendingPathComponent("Coordinates.plist")
     }
     
+    func delete(index: Int) {
+        savedCoordinates.remove(at: index)
+        saveToFile()
+    }
+    
     func saveCoordinates(coordinates: Coord) {
-        savedCoord.append(coordinates)
+        savedCoordinates.append(coordinates)
         let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(savedCoord)
+            let data = try encoder.encode(savedCoordinates)
             try data.write(
                 to: dataFilePath(),
                 options: Data.WritingOptions.atomic)
-            print(savedCoord)
+            print(coordinates)
         } catch {
             print("Error encodig item array: \(error.localizedDescription)")
         }
        
     }
     
-    func loadCoordinates() -> [Coord] {
-        
+    func saveToFile() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(savedCoordinates)
+            try data.write(
+                to: dataFilePath(),
+                options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encodig item array: \(error.localizedDescription)")
+        }
+       
+    }
+    
+    func loadCoordinates(completion: @escaping (Result<[Coord], Error>) -> Void) {
         let path = dataFilePath()
-       // var savedCoord = [Coord]()
-        
+    
         if let data = try? Data(contentsOf: path) {
             let decoder = PropertyListDecoder()
             do {
-                savedCoord = try decoder.decode([Coord].self, from: data)
-               // return savedCoord
+                savedCoordinates = try decoder.decode([Coord].self, from: data)
+                completion(.success(savedCoordinates))
             } catch {
                 print("Error decoding item array: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
         
-       return savedCoord
+     
+    }
+    
+    func loadCoordinates() {
+        let path = dataFilePath()
+    
+        if let data = try? Data(contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                savedCoordinates = try decoder.decode([Coord].self, from: data)
+            } catch {
+                print("Error decoding item array: \(error.localizedDescription)")
+               
+            }
+        }
     }
     
     

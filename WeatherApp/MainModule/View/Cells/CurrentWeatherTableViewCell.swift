@@ -19,21 +19,24 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 22, weight: .semibold)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .white
         return label
     }()
     
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
-        label.font = .systemFont(ofSize: 50, weight: .semibold)
+        label.font = .systemFont(ofSize: 45, weight: .semibold)
+        label.textColor = .white
         return label
     }()
     
@@ -41,12 +44,14 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .white
         return label
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraints()
+        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.7)
         
     }
     
@@ -70,13 +75,14 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
     
-            cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -16),
+            cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor),
             cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            cityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
            
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -16),
-            descriptionLabel.topAnchor.constraint(greaterThanOrEqualTo: cityLabel.bottomAnchor, constant: 10),
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
             
             tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -91,21 +97,20 @@ class CurrentWeatherTableViewCell: UITableViewCell {
             highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor)
             
         ])
+        
         cityLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        tempLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
        
     }
     
     func configureDataSource(weather: CurrentWeather) {
+        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
+        contentView.backgroundColor = getColor.getBackgroundColor()
         
-        let dateConverter = DateConverter(timezone: weather.timezone)
-        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
-        let icon = IconWithString()
-        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: weather.timezone)
-     
-        let image = icon.getIcon(with: weather.weather.first!.id, isDay: isDay)
+        let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
+        let image = icon.getIcon(with: weather.weather.first!.id)
         iconImageView.image = UIImage(named: image)
-        
         
         cityLabel.text = weather.name
         descriptionLabel.text = weather.weather.first!.main

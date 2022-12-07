@@ -12,5 +12,5 @@ struct ForecastViewModel {
     let maxTemperature: Double
     let minTemperature: Double
     let date: Date
-  
+
 }

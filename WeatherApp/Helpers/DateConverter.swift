@@ -8,6 +8,7 @@
 import Foundation
 
 struct DateConverter {
+    
     private let timezone: Double
     
     init(timezone: Int) {
@@ -20,7 +21,6 @@ struct DateConverter {
     }
     
     func convertDateFromUTC(string: Int) -> Date {
-        
         let utcDate = convertDate(from: String(string))
         return utcDate.addingTimeInterval(self.timezone)
     }
@@ -32,22 +32,14 @@ struct DateConverter {
     }
     
     func compareTime(now: Date, timeZone: Int) -> Bool {
-        
-        let calendar = Calendar.current
-        let eight_today = calendar.date(
-          bySettingHour: 8,
-          minute: 0,
-          second: 0,
-          of: now)!
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let eightToday = calendar.date(bySettingHour: 8, minute: 0, second: 0, of: now)!
 
-        let four_thirty_today = calendar.date(
-          bySettingHour: 16,
-          minute: 30,
-          second: 0,
-          of: now)!
+        let fourThirtyToday = calendar.date(bySettingHour: 16, minute: 30, second: 0, of: now)!
         
-        if now >= eight_today &&
-          now <= four_thirty_today
+        if now >= eightToday &&
+        now <= fourThirtyToday
         {
          return true
         }

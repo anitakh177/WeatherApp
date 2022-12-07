@@ -10,7 +10,21 @@ import Foundation
 
 struct IconWithString {
     
-    func getIcon(with id: Int, isDay: Bool) -> String {
+    let timezone: Int
+    let date: Int
+    
+    init(timezone: Int, date: Int) {
+        self.timezone = timezone
+        self.date = date
+    }
+    
+    func getIcon(with id: Int) -> String {
+        
+        let dateConverter = DateConverter(timezone: timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: date)
+        
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
+        
         switch id {
         case 200...232:
             return "13.thunderstorm-light"

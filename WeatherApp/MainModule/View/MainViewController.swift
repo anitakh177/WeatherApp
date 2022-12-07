@@ -43,9 +43,10 @@ class MainViewController: UIViewController, ModuleTransitionable {
 }
 
 extension MainViewController: MainViewInput {
+    
     @objc func notificateArray() {
         presenter.loadCoordinatesFromStorage()
-        tableView.reloadData()
+      //  tableView.reloadData()
     }
     
     func reloadData() {
@@ -88,13 +89,13 @@ private extension MainViewController {
     }
     
     func configureView() {
-       
         view.backgroundColor = .white
         navigationItem.title = "Weather"
        
         configureTableView()
         configureNavigationBar()
     }
+    
     func configureNavigationBar() {
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(openSearchVC))
         rightBarButtonItem.tintColor = .black
@@ -138,7 +139,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return  presenter.favWeather.count
+            return  presenter.savedWeather.count
         }
     }
     
@@ -156,7 +157,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
-             let weather = presenter.favWeather
+             let weather = presenter.savedWeather
                 cell?.configureDataSource(weather: weather[indexPath.row])
                 
                 
@@ -174,7 +175,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                  presenter.pushDetailVC(weather: weather)
              }
          } else {
-             if let weather = presenter?.favWeather {
+             if let weather = presenter?.savedWeather {
                  presenter.pushDetailVC(weather: weather[indexPath.row])
              }
          }
@@ -188,6 +189,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return "FAVORITE CITY"
         default:
             return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter.delete(index: indexPath.row, indexPath: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
         }
     }
 }

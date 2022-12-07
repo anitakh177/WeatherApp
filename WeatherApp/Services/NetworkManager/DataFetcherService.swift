@@ -23,12 +23,6 @@ init(dataFetcher: DataFetcher = NetworkDataFetcher()) {
 }
 
 
-func searchCity(text: String, completion: @escaping(CurrentWeather?) -> Void) {
-    let encodedText = text.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-    let urlSearch = String(baseURL+"q="+encodedText+apiKey+Units.metric)
-        dataFetcher.fetchGenericJSONData(urlString: urlSearch, response: completion)
-    }
-    
     func searchCoordinates(latitude: Double, longitude: Double, comletion: @escaping(CurrentWeather?) -> Void) {
         let lat = "lat=\(latitude)"
         let lon = "lon=\(longitude)"

@@ -13,6 +13,7 @@
 		08387035292F73E60084E606 /* MainViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387034292F73E60084E606 /* MainViewInput.swift */; };
 		08387037292F73F20084E606 /* MainViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387036292F73F20084E606 /* MainViewOutput.swift */; };
 		08387039292F73FC0084E606 /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387038292F73FC0084E606 /* MainViewPresenter.swift */; };
+		083A913D294090F70001A1D7 /* GetBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A913C294090F70001A1D7 /* GetBackgroundColor.swift */; };
 		083C344E293096F80066BE22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C344D293096F80066BE22 /* LocationManager.swift */; };
 		083C34522930BD920066BE22 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C34512930BD920066BE22 /* DetailViewController.swift */; };
 		083C34552930BF3C0066BE22 /* TemperatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C34542930BF3C0066BE22 /* TemperatureTableViewCell.swift */; };
@@ -61,6 +62,7 @@
 		08387034292F73E60084E606 /* MainViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewInput.swift; sourceTree = "<group>"; };
 		08387036292F73F20084E606 /* MainViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewOutput.swift; sourceTree = "<group>"; };
 		08387038292F73FC0084E606 /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
+		083A913C294090F70001A1D7 /* GetBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBackgroundColor.swift; sourceTree = "<group>"; };
 		083C344D293096F80066BE22 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		083C34512930BD920066BE22 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		083C34542930BF3C0066BE22 /* TemperatureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureTableViewCell.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				08F2D1902935E22600AD6AA4 /* DateConverter.swift */,
 				08D938E629377143001C9D7B /* ModuleTransitionable.swift */,
 				08A279AA29388F8E006F2633 /* InsetConstants.swift */,
+				083A913C294090F70001A1D7 /* GetBackgroundColor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -277,12 +280,12 @@
 			isa = PBXGroup;
 			children = (
 				08D938DC29376EAD001C9D7B /* Application */,
+				087B8963292F44470029FAA2 /* Services */,
 				08387030292F73B20084E606 /* MainModule */,
 				083C344F2930BD7D0066BE22 /* DetailModule */,
 				08F2D1922936131400AD6AA4 /* SearchModule */,
 				087D4C742934B8C8001B8231 /* Helpers */,
 				087D4C772934EDED001B8231 /* Extensions */,
-				087B8963292F44470029FAA2 /* Services */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				083C344E293096F80066BE22 /* LocationManager.swift in Sources */,
 				08387035292F73E60084E606 /* MainViewInput.swift in Sources */,
 				083C345C29311E730066BE22 /* LocationSearchTable.swift in Sources */,
+				083A913D294090F70001A1D7 /* GetBackgroundColor.swift in Sources */,
 				08D938E729377143001C9D7B /* ModuleTransitionable.swift in Sources */,
 				08A279A429387F1E006F2633 /* DetailsTableViewCell.swift in Sources */,
 				08D938E129376F7B001C9D7B /* SearchRouterInput.swift in Sources */,

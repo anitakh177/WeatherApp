@@ -9,30 +9,28 @@ import Foundation
 import CoreLocation
 
 class MainViewPresenter: MainViewOutput {
-    var favWeather = [CurrentWeather]()
-    var savedCoordinates: [Coord]?
+    
+    // MARK: - Properties
+
+    var savedWeather = [CurrentWeather]()
     var view: MainViewInput?
-    let dataFetcherService: DataFetcherService
+    private let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
     var router: MainRouterInput?
+  
+    // MARK: - Initialization
     
     required init(view: MainViewInput, dataFetcherService: DataFetcherService) {
         self.view = view
         self.dataFetcherService = dataFetcherService
     }
     
+    // MARK: - Methods
+    
     func loadData(lat: Double, long: Double) {
         dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { weather in
             self.currentWeather = weather
             self.view?.reloadData()
-        }
-    }
-    
-    func loadData(for text: String) {
-        dataFetcherService.searchCity(text: text) { weather in
-           self.currentWeather = weather
-            self.view?.reloadData()
-            
         }
     }
     
@@ -45,17 +43,36 @@ class MainViewPresenter: MainViewOutput {
     }
     
     func loadCoordinatesFromStorage() {
-       let storage = FavoriteCityStorageService()
-       savedCoordinates = storage.loadCoordinates()
-        savedCoordinates?.forEach { item in
-            dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
-                self?.favWeather.append(weather!)
-                self?.view?.reloadData()
+        let dispatchGroup = DispatchGroup()
+        let storage = FavoriteCityStorageService()
+       storage.loadCoordinates { [weak self] result in
+           switch result {
+           case .success(let coord):
               
-            }
+               coord.forEach { item in
+                   dispatchGroup.enter()
+                   self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
+                       self?.savedWeather.append(weather!)
+                       dispatchGroup.leave()
+                   }
+                   
+               }
+              
+               dispatchGroup.notify(queue: .main) {
+                   self?.view?.reloadData()
+               }
+           case .failure(let error):
+              print(error)
+           }
             
         }
         
+    }
+    
+    func delete(index: Int, indexPath: IndexPath) {
+        let storage = FavoriteCityStorageService()
+        savedWeather.remove(at: indexPath.row)
+        storage.delete(index: index)
     }
     
       

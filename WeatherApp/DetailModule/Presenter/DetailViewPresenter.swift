@@ -30,7 +30,6 @@ final class DetailViewPresenter: DetailViewOutput {
     func loadForecast() {
         dataFetcherService.forecast(latitude: weather.coord.lat, longitude: weather.coord.lon) { [weak self] forecast in
             self?.forecast = forecast
-           // self?.forecastViewModel.append(contentsOf: self!.getDailyForecast(forecast: forecast!))
             self?.view?.updateForecast(self!.getDailyForecast(forecast: forecast!))
           
         }

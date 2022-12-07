@@ -34,7 +34,6 @@ final class DetailsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .clear
-        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.9)
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "\(DetailsCollectionViewCell.self)")
         
     }
@@ -51,6 +50,8 @@ final class DetailsTableViewCell: UITableViewCell {
     }
     
     func updateCell(with model: CurrentWeather) {
+        let getColor = GetBackgroundColor(timezone: model.timezone, date: model.dt)
+        contentView.backgroundColor = getColor.getBackgroundColor().withAlphaComponent(0.9)
         self.model = model
         collectionView.reloadData()
     }
