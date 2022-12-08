@@ -7,7 +7,9 @@
 
 import UIKit
 
-class TemperatureTableViewCell: UITableViewCell {
+final class TemperatureTableViewCell: UITableViewCell {
+    
+    // MARK: - Views
     
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
@@ -54,6 +56,8 @@ class TemperatureTableViewCell: UITableViewCell {
         return stack
         
     }()
+    
+    // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,22 +68,15 @@ class TemperatureTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
        setConstaints()
     }
     
-  private  func setConstaints() {
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
-        ])
-    }
+ 
+    // MARK: - Open Methods
     
     func configureDataSource(weather: CurrentWeather) {
         let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
@@ -94,16 +91,22 @@ class TemperatureTableViewCell: UITableViewCell {
         highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
     
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        iconImageView.image = nil
-        cityLabel.text = nil
-        descriptionLabel.text = nil
-        temperatureLabel.text = nil
-        highAndLowTemp.text = nil
-    }
 
+}
+
+// MARK: - Private Methods
+
+private extension TemperatureTableViewCell {
+    func setConstaints() {
+          verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+          
+          NSLayoutConstraint.activate([
+              verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+              verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+              verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+              verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+          ])
+      }
 }
 
 

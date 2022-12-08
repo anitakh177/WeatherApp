@@ -9,6 +9,8 @@ import UIKit
 
 final class ForecstTableViewCell: UITableViewCell {
     
+    // MARK: - Views
+    
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
@@ -48,6 +50,7 @@ final class ForecstTableViewCell: UITableViewCell {
         return stack
     }()
     
+    // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,15 +63,21 @@ final class ForecstTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setConstraints()
     }
     
+    // MARK: - Open Methods
+    
     func configureBackgroundColor(weather: CurrentWeather) {
         let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
         contentView.backgroundColor = getColor.getBackgroundColor().withAlphaComponent(0.9)
     }
+    
+    
     
     func configureDataSource(forecast: ForecastViewModel) {
         let tempHigh = String(format: "%.f", forecast.maxTemperature)

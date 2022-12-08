@@ -31,6 +31,7 @@
 		087ECEE8292E7FB4005A97A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087ECEE7292E7FB4005A97A3 /* MainViewController.swift */; };
 		087ECEED292E7FB6005A97A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 087ECEEC292E7FB6005A97A3 /* Assets.xcassets */; };
 		087ECEF0292E7FB6005A97A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 087ECEEE292E7FB6005A97A3 /* LaunchScreen.storyboard */; };
+		0885EE6429420655008FE316 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0885EE6329420655008FE316 /* LocationManagerDelegate.swift */; };
 		08A279A429387F1E006F2633 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A279A329387F1E006F2633 /* DetailsTableViewCell.swift */; };
 		08A279A729388190006F2633 /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A279A629388190006F2633 /* DetailsCollectionViewCell.swift */; };
 		08A279AB29388F8E006F2633 /* InsetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A279AA29388F8E006F2633 /* InsetConstants.swift */; };
@@ -82,6 +83,7 @@
 		087ECEEC292E7FB6005A97A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		087ECEEF292E7FB6005A97A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		087ECEF1292E7FB6005A97A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0885EE6329420655008FE316 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		08A279A329387F1E006F2633 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		08A279A629388190006F2633 /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		08A279AA29388F8E006F2633 /* InsetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetConstants.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				083C344D293096F80066BE22 /* LocationManager.swift */,
+				0885EE6329420655008FE316 /* LocationManagerDelegate.swift */,
 			);
 			path = "Location Manager";
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				084E00CC292F79DB00F83E3B /* MainModuleConfigurator.swift in Sources */,
 				08D938DA29376CD3001C9D7B /* DetailModuleConfigurator.swift in Sources */,
 				08AC4FF229326F8400253C3D /* DetailViewPresenter.swift in Sources */,
+				0885EE6429420655008FE316 /* LocationManagerDelegate.swift in Sources */,
 				087ECEE8292E7FB4005A97A3 /* MainViewController.swift in Sources */,
 				08AC4FEF2932421800253C3D /* Location.swift in Sources */,
 				08387039292F73FC0084E606 /* MainViewPresenter.swift in Sources */,

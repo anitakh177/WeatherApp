@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CurrentWeatherTableViewCell: UITableViewCell {
+final class CurrentWeatherTableViewCell: UITableViewCell {
+    
+    // MARK: - Views
     
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
@@ -47,20 +49,52 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         label.textColor = .white
         return label
     }()
+    
+    // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setConstraints()
-        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.7)
-        
+    
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setConstraints() {
-        contentView.backgroundColor = UIColor(named: "dayColor")?.withAlphaComponent(0.7)
+    // MARK: - Layout
+    
+    override func layoutSubviews() {
+       super.layoutSubviews()
+        setConstraints()
+    }
+    
+   
+    // MARK: - Open Methods
+    
+    func configureDataSource(weather: CurrentWeather) {
+        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
+        contentView.backgroundColor = getColor.getBackgroundColor()
+        
+        let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
+        let image = icon.getIcon(with: weather.weather.first!.id)
+        iconImageView.image = UIImage(named: image)
+        
+        cityLabel.text = weather.name
+        descriptionLabel.text = weather.weather.first!.main
+        tempLabel.text = String(format: "%.f", weather.main.temp) + "°"
+        let tempHigh = String(format: "%.f", weather.main.tempMax)
+        let tempLow = String(format: "%.f", weather.main.tempMin)
+        highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
+        
+       
+    }
+}
+
+// MARK: - Private Methods
+
+private extension CurrentWeatherTableViewCell {
+    
+    func setConstraints() {
         contentView.addSubview(iconImageView)
         contentView.addSubview(cityLabel)
         contentView.addSubview(descriptionLabel)
@@ -101,24 +135,6 @@ class CurrentWeatherTableViewCell: UITableViewCell {
         cityLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         tempLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-       
-    }
-    
-    func configureDataSource(weather: CurrentWeather) {
-        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
-        contentView.backgroundColor = getColor.getBackgroundColor()
-        
-        let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
-        let image = icon.getIcon(with: weather.weather.first!.id)
-        iconImageView.image = UIImage(named: image)
-        
-        cityLabel.text = weather.name
-        descriptionLabel.text = weather.weather.first!.main
-        tempLabel.text = String(format: "%.f", weather.main.temp) + "°"
-        let tempHigh = String(format: "%.f", weather.main.tempMax)
-        let tempLow = String(format: "%.f", weather.main.tempMin)
-        highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
-        
        
     }
 }

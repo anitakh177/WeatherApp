@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LocationSearchTable: UITableViewController, ModuleTransitionable {
+final class LocationSearchTable: UITableViewController, ModuleTransitionable {
     
     // MARK: - Properties
 
@@ -25,10 +25,7 @@ class LocationSearchTable: UITableViewController, ModuleTransitionable {
         super.viewDidLoad()
        
         configureAppearance()
-       
     }
-    
-    
 }
 
 // MARK: - Private Methods
@@ -42,9 +39,10 @@ private extension LocationSearchTable {
     }
     
     func createSearchBar() {
-        searchBar = UISearchBar(frame: CGRect(x: 56, y: 5, width: 300, height: 32))
+        searchBar = UISearchBar(frame: CGRect(x: 56, y: 20, width: 300, height: 32))
         searchBar.placeholder = "Search for a city"
         searchBar.delegate = self
+        
     }
     
     func configureNavigationBar() {
@@ -65,28 +63,20 @@ private extension LocationSearchTable {
     }
 }
 
+// MARK: - Search Table View Input
+
 extension LocationSearchTable: SearchTableViewInput {
     func reloadData() {
         tableView.reloadData()
     }
-    
-    
-    
-    
+
 }
 // MARK: - UISearch delegate
 extension LocationSearchTable: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.locations = []
         if let text = searchBar.text, !text.isEmpty {
-           
-            LocationManager.shared.findLocations(with: text) { [weak self] location in
-            
-                DispatchQueue.main.async {
-                    self?.locations! += location
-                    self?.tableView.reloadData()
-                }
-            }
+            presenter?.searchLocation(for: text)
         }
     }
     
@@ -98,8 +88,8 @@ extension LocationSearchTable: UISearchBarDelegate {
 extension LocationSearchTable {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let locations = locations else { return 0 }
-            return locations.count
+        guard let locations = presenter?.locations else { return 0 }
+        return locations.count
         
     }
 
@@ -107,14 +97,14 @@ extension LocationSearchTable {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(LocationSearchTableViewCell.self)", for: indexPath) as! LocationSearchTableViewCell
        
-        if let locations = locations {
+        if let locations = presenter?.locations {
             cell.configureDataSource(location: locations[indexPath.row])
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            guard let locations = locations else { return }
+        guard let locations = presenter?.locations else { return }
             let coordinate = locations[indexPath.row].coordinates
         self.presenter?.loadData(for: coordinate!.latitude, long: coordinate!.longitude)
             

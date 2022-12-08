@@ -11,7 +11,7 @@ final class DetailsTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var model: CurrentWeather!
+    var weather: CurrentWeather!
     
     // MARK: - Views
 
@@ -31,6 +31,8 @@ final class DetailsTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .clear
@@ -42,6 +44,7 @@ final class DetailsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -49,10 +52,12 @@ final class DetailsTableViewCell: UITableViewCell {
         setConstraints()
     }
     
+    // MARK: - Open Methods
+    
     func updateCell(with model: CurrentWeather) {
         let getColor = GetBackgroundColor(timezone: model.timezone, date: model.dt)
         contentView.backgroundColor = getColor.getBackgroundColor().withAlphaComponent(0.9)
-        self.model = model
+        self.weather = model
         collectionView.reloadData()
     }
     
@@ -85,20 +90,20 @@ extension DetailsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(DetailsCollectionViewCell.self)", for: indexPath) as? DetailsCollectionViewCell
           switch indexPath.item {
           case 0:
-              let number = String(format: "%.f", model!.main.feelsLike)
+              let number = String(format: "%.f", weather!.main.feelsLike)
               cell?.backgroundColor = .clear
               cell?.configureDataSource(icon: UIImage(systemName: "thermometer.medium")!, title: "Feels Like", number: "\(number)°")
 
           case 1:
               cell?.backgroundColor = .clear
-              cell?.configureDataSource(icon: UIImage(systemName: "humidity")!, title: "Humidity", number: "\(model?.main.humidity ?? 0)%")
+              cell?.configureDataSource(icon: UIImage(systemName: "humidity")!, title: "Humidity", number: "\(weather?.main.humidity ?? 0)%")
           case 2:
               cell?.backgroundColor = .clear
-              cell?.configureDataSource(icon: UIImage(systemName: "cloud")!, title: "Clouds", number: "\(model?.clouds.all ?? 0)")
+              cell?.configureDataSource(icon: UIImage(systemName: "cloud")!, title: "Clouds", number: "\(weather?.clouds.all ?? 0)")
           
           case 3:
               cell?.backgroundColor = .clear
-              let number = String(format: "%.f", model!.wind.speed)
+              let number = String(format: "%.f", weather!.wind.speed)
               cell?.configureDataSource(icon: UIImage(systemName: "wind")!, title: "Wind", number: number)
               
           default:

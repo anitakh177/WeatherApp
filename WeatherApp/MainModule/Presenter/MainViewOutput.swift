@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol MainViewOutput {
     init(view: MainViewInput, dataFetcherService: DataFetcherService)
@@ -16,5 +17,6 @@ protocol MainViewOutput {
     func pushDetailVC(weather: CurrentWeather)
     func pushSearchVC()
     func delete(index: Int, indexPath: IndexPath)
+   
     
 }

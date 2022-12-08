@@ -9,23 +9,17 @@ import Foundation
 
 final class FavoriteCityStorageService {
     
+    // MARK: - Properties
+    
     var savedCoordinates: [Coord] = []
+    
+    // MARK: - Initialization
     
     init() {
         loadCoordinates()
     }
   
     //MARK: Save and load data
-    
-    func documentsDirectory() -> URL {
-        
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
-    func dataFilePath() -> URL {
-        return documentsDirectory().appendingPathComponent("Coordinates.plist")
-    }
     
     func delete(index: Int) {
         savedCoordinates.remove(at: index)
@@ -41,19 +35,6 @@ final class FavoriteCityStorageService {
                 to: dataFilePath(),
                 options: Data.WritingOptions.atomic)
             print(coordinates)
-        } catch {
-            print("Error encodig item array: \(error.localizedDescription)")
-        }
-       
-    }
-    
-    func saveToFile() {
-        let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(savedCoordinates)
-            try data.write(
-                to: dataFilePath(),
-                options: Data.WritingOptions.atomic)
         } catch {
             print("Error encodig item array: \(error.localizedDescription)")
         }
@@ -77,6 +58,35 @@ final class FavoriteCityStorageService {
      
     }
     
+}
+
+// MARK: - Private Methods
+
+private extension FavoriteCityStorageService {
+
+    func documentsDirectory() -> URL {
+        
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Coordinates.plist")
+    }
+    
+    func saveToFile() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(savedCoordinates)
+            try data.write(
+                to: dataFilePath(),
+                options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encodig item array: \(error.localizedDescription)")
+        }
+       
+    }
+    
     func loadCoordinates() {
         let path = dataFilePath()
     
@@ -93,5 +103,3 @@ final class FavoriteCityStorageService {
     
     
 }
-
-

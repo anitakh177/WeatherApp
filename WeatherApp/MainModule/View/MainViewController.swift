@@ -8,92 +8,58 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController, ModuleTransitionable {
+final class MainViewController: UIViewController, ModuleTransitionable {
     
     // MARK: - Views
-    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
- 
     
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private var serachController = UISearchController()
     
     // MARK: - Properties
     
     var presenter: MainViewOutput!
-    var locations = [Location]()
-    var locationManager = CLLocationManager()
 
     // MARK: - Properties
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //
         configureView()
-        attemptLocationAccess()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(notificateArray), name: Notification.Name("reload"), object: nil)
+        createNotifition()
         presenter.loadCoordinatesFromStorage()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-
 }
 
+// MARK: - Main View Input
+
 extension MainViewController: MainViewInput {
-    
-    @objc func notificateArray() {
-        presenter.loadCoordinatesFromStorage()
-      //  tableView.reloadData()
-    }
     
     func reloadData() {
         tableView.reloadData()
     }
 }
+
 // MARK: - Private Methods
 
 private extension MainViewController {
     
-    func attemptLocationAccess() {
-        DispatchQueue.global().async {
-            guard CLLocationManager.locationServicesEnabled() else {
-                return
-            }
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            
-            self.locationManager.delegate = self
-            let authStatus = self.locationManager.authorizationStatus
-            if authStatus == .notDetermined {
-                self.locationManager.requestWhenInUseAuthorization()
-            } else {
-                self.locationManager.requestLocation()
-            }
-            if authStatus == .denied || authStatus == .restricted {
-                DispatchQueue.main.async {
-                    self.showLocationServicesDeniedAlert()
-                }
-            }
-        }
+    func createNotifition() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notificateArray), name: Notification.Name("reload"), object: nil)
     }
     
-    func showLocationServicesDeniedAlert() {
-        let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable location services for this app in Settings.", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
+    @objc func notificateArray() {
+        presenter.loadCoordinatesFromStorage()
+      //  tableView.reloadData()
     }
-    
+        
     func configureView() {
         view.backgroundColor = .white
         navigationItem.title = "Weather"
        
         configureTableView()
         configureNavigationBar()
+        
     }
     
     func configureNavigationBar() {
@@ -130,6 +96,8 @@ private extension MainViewController {
                                  
 }
 
+// MARK: Table View Delegate & DataSource
+
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -139,19 +107,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return  presenter.savedWeather.count
+            return presenter.savedWeather.count
         }
     }
     
-    
-  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
             if let weather = presenter.currentWeather {
                 cell?.configureDataSource(weather: weather)
-                
                 }
             return cell ?? UITableViewCell()
             
@@ -159,8 +124,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
              let weather = presenter.savedWeather
                 cell?.configureDataSource(weather: weather[indexPath.row])
-                
-                
             return cell ?? UITableViewCell()
             
         default:
@@ -201,15 +164,3 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MainViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError \(error.localizedDescription)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            presenter.loadData(lat: location.coordinate.latitude, long: location.coordinate.longitude)
-
-        }
-    }
-}

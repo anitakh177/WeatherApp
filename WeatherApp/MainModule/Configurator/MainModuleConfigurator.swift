@@ -14,6 +14,7 @@ final class MainModuleConfigurator {
       let view = MainViewController()
       let router = MainRouter()
       let dataFetcherService = DataFetcherService()
+      
       let presenter = MainViewPresenter(view: view, dataFetcherService: dataFetcherService)
         view.presenter = presenter
         presenter.router = router

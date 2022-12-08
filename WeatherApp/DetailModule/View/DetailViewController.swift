@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     // MARK: - Propertis
     
@@ -19,6 +19,8 @@ class DetailViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureAppearance()
@@ -27,6 +29,8 @@ class DetailViewController: UIViewController {
     }
     
 }
+
+// MARK: - Private Methods
 
 private extension DetailViewController {
     
@@ -82,6 +86,8 @@ private extension DetailViewController {
     }
     
 }
+
+// MARK: - TableView Delegate & DataSource
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -157,13 +163,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
+// MARK: - Detail View Input
+
 extension DetailViewController: DetailViewInput {
     func updateForecast(_ model: [ForecastViewModel]) {
         forecastViewModel = model
         tableView.reloadData()
     }
-    
-    
     
     func reloadData() {
         tableView.reloadData()

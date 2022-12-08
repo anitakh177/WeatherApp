@@ -10,4 +10,5 @@ import Foundation
 protocol MainRouterInput {
     func showPushModule(weather: CurrentWeather)
     func showSearchModule()
+    func showMessageModule(with title: String, with message: String)
 }

@@ -9,8 +9,9 @@ import UIKit
 
 struct GetBackgroundColor {
     
-    let timezone: Int
-    let date: Int
+  private  let timezone: Int
+  private let date: Int
+    
     init(timezone: Int, date: Int) {
         self.timezone = timezone
         self.date = date

@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 
-class MainViewPresenter: MainViewOutput {
-    
+final class MainViewPresenter: MainViewOutput {
+     
     // MARK: - Properties
 
     var savedWeather = [CurrentWeather]()
@@ -17,12 +17,15 @@ class MainViewPresenter: MainViewOutput {
     private let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
     var router: MainRouterInput?
+    let locationManager = LocationManager()
   
     // MARK: - Initialization
     
     required init(view: MainViewInput, dataFetcherService: DataFetcherService) {
         self.view = view
         self.dataFetcherService = dataFetcherService
+        self.locationManager.delegate = self
+        self.locationManager.startUpdating()
     }
     
     // MARK: - Methods
@@ -75,5 +78,16 @@ class MainViewPresenter: MainViewOutput {
         storage.delete(index: index)
     }
     
-      
+   
+}
+
+extension MainViewPresenter: LocationManagerDelegate {
+    
+    func showLocationServicesDeniedAlert() {
+        router?.showMessageModule(with: "Location Services Disabled", with: "Please enable location services for this app in Settings.")
+    }
+    
+    func didUpdateLocation(lat: Double, long: Double) {
+        loadData(lat: lat, long: long)
+    }
 }

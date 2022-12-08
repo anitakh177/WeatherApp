@@ -9,6 +9,8 @@ import UIKit
 
 final class DetailsCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Views
+    
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
@@ -41,6 +43,8 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         return stack
     }()
     
+    // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(stackView)
@@ -50,11 +54,15 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setConstraints()
       
     }
+    
+    // MARK: - Open Methods
     
     func configureDataSource(icon: UIImage, title: String, number: String) {
         iconImageView.image = icon

@@ -10,9 +10,11 @@ import Foundation
 final class SearchRouter: SearchRouterInput {
 
     // MARK: - Properties
+    
     weak var view: ModuleTransitionable?
     
     // MARK: - MainRouterInput
+    
     func showDetailModule(weather: CurrentWeather) {
         let detailVC = DetailModuleConfigurator().configure(weather: weather)
         view?.push(module: detailVC, animated: true)
