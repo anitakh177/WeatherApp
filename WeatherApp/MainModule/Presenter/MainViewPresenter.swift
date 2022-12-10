@@ -47,29 +47,29 @@ final class MainViewPresenter: MainViewOutput {
     
     func loadCoordinatesFromStorage() {
         let dispatchGroup = DispatchGroup()
-        let storage = FavoriteCityStorageService()
-       storage.loadCoordinates { [weak self] result in
-           switch result {
-           case .success(let coord):
-              
-               coord.forEach { item in
-                   dispatchGroup.enter()
-                   self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
-                       self?.savedWeather.append(weather!)
-                       dispatchGroup.leave()
-                   }
-                   
-               }
-              
-               dispatchGroup.notify(queue: .main) {
-                   self?.view?.reloadData()
-               }
-           case .failure(let error):
-              print(error)
-           }
-            
-        }
-        
+         let storage = FavoriteCityStorageService()
+         storage.loadCoordinates { [weak self] result in
+         switch result {
+         case .success(let coord):
+         
+         coord.forEach { item in
+         dispatchGroup.enter()
+         self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
+         self?.savedWeather.append(weather!)
+         dispatchGroup.leave()
+         }
+         
+         }
+         
+         dispatchGroup.notify(queue: .main) {
+         self?.view?.reloadData()
+         }
+         case .failure(let error):
+         print(error)
+         }
+         
+         }
+         
     }
     
     func delete(index: Int, indexPath: IndexPath) {

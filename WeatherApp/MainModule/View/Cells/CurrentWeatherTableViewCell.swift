@@ -50,11 +50,18 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var roundedView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        return view
+    }()
+    
     // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+        contentView.addSubview(roundedView)
     }
     
     required init?(coder: NSCoder) {
@@ -72,8 +79,10 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
     // MARK: - Open Methods
     
     func configureDataSource(weather: CurrentWeather) {
-        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
-        contentView.backgroundColor = getColor.getBackgroundColor()
+        var getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
+        getColor.nightGradient.frame = roundedView.bounds
+        getColor.dayGradient.frame = roundedView.bounds
+        roundedView.layer.addSublayer(getColor.getBackgroundColor())
         
         let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
         let image = icon.getIcon(with: weather.weather.first!.id)
@@ -95,12 +104,13 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
 private extension CurrentWeatherTableViewCell {
     
     func setConstraints() {
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(cityLabel)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(tempLabel)
-        contentView.addSubview(highAndLowTemp)
+        roundedView.addSubview(iconImageView)
+        roundedView.addSubview(cityLabel)
+        roundedView.addSubview(descriptionLabel)
+        roundedView.addSubview(tempLabel)
+        roundedView.addSubview(highAndLowTemp)
         
+        roundedView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -108,27 +118,33 @@ private extension CurrentWeatherTableViewCell {
         highAndLowTemp.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            
+            roundedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            roundedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            roundedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            roundedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
     
             cityLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor),
-            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            cityLabel.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 8),
+            cityLabel.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 8),
             cityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
            
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor, constant: -16),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            descriptionLabel.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -8),
             
+
+            tempLabel.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: -8),
+            tempLabel.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 8),
             
-            tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            
-            iconImageView.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor, constant: -16),
-            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconImageView.trailingAnchor.constraint(equalTo: tempLabel.leadingAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
+            iconImageView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: 120),
             iconImageView.heightAnchor.constraint(equalToConstant: 80),
             
-            highAndLowTemp.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            highAndLowTemp.topAnchor.constraint(equalTo: tempLabel.bottomAnchor)
+            highAndLowTemp.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: -16),
+            highAndLowTemp.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -8)
             
         ])
         

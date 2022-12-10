@@ -12,7 +12,7 @@ final class MainViewController: UIViewController, ModuleTransitionable {
     
     // MARK: - Views
     
-    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let tableView = UITableView()
     private var serachController = UISearchController()
     
     // MARK: - Properties
@@ -73,10 +73,11 @@ private extension MainViewController {
     }
     
     func configureTableView() {
+        tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 100
+        tableView.rowHeight = 120
         tableView.register(CurrentWeatherTableViewCell.self, forCellReuseIdentifier: "\(CurrentWeatherTableViewCell.self)")
         setTableConstraints()
     }
@@ -115,6 +116,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+            cell?.selectionStyle = .none
             if let weather = presenter.currentWeather {
                 cell?.configureDataSource(weather: weather)
                 }
@@ -122,6 +124,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+            
              let weather = presenter.savedWeather
                 cell?.configureDataSource(weather: weather[indexPath.row])
             return cell ?? UITableViewCell()
@@ -161,6 +164,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             
         }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.contentView.layer.masksToBounds = true
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+       
     }
 }
 

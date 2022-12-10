@@ -31,7 +31,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textAlignment = .center
         return label
     }()

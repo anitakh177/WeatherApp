@@ -56,7 +56,7 @@ final class DetailsTableViewCell: UITableViewCell {
     
     func updateCell(with model: CurrentWeather) {
         let getColor = GetBackgroundColor(timezone: model.timezone, date: model.dt)
-        contentView.backgroundColor = getColor.getBackgroundColor().withAlphaComponent(0.9)
+        contentView.backgroundColor = getColor.getDetailsColor().withAlphaComponent(0.8)
         self.weather = model
         collectionView.reloadData()
     }
@@ -71,8 +71,8 @@ private extension DetailsTableViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 8),
         
@@ -99,12 +99,12 @@ extension DetailsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
               cell?.configureDataSource(icon: UIImage(systemName: "humidity")!, title: "Humidity", number: "\(weather?.main.humidity ?? 0)%")
           case 2:
               cell?.backgroundColor = .clear
-              cell?.configureDataSource(icon: UIImage(systemName: "cloud")!, title: "Clouds", number: "\(weather?.clouds.all ?? 0)")
+              cell?.configureDataSource(icon: UIImage(systemName: "cloud")!, title: "Clouds", number: "\(weather?.clouds.all ?? 0)%")
           
           case 3:
               cell?.backgroundColor = .clear
               let number = String(format: "%.f", weather!.wind.speed)
-              cell?.configureDataSource(icon: UIImage(systemName: "wind")!, title: "Wind", number: number)
+              cell?.configureDataSource(icon: UIImage(systemName: "wind")!, title: "Wind", number: "\(number) km/h")
               
           default:
               cell?.configureDataSource(icon: UIImage(systemName: "nosign")!, title: "", number: "")

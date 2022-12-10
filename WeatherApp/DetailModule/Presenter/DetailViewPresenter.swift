@@ -10,8 +10,6 @@ import CoreLocation
 
 final class DetailViewPresenter: DetailViewOutput {
    
-    
-    
     //MARK: - Properties
     
     let dataFetcherService: DataFetcherService
@@ -68,6 +66,7 @@ final class DetailViewPresenter: DetailViewOutput {
     func save() {
         let storageService = FavoriteCityStorageService()
         storageService.saveCoordinates(coordinates: weather.coord)
+        
     }
      
     }

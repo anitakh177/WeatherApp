@@ -59,9 +59,12 @@ private extension DetailViewController {
     }
     
     func configureTableView() {
-        let getColor = GetBackgroundColor(timezone: presenter.weather.timezone, date: presenter.weather.dt)
-        
-        tableView.backgroundColor = getColor.getBackgroundColor()
+        var getColor = GetBackgroundColor(timezone: presenter.weather.timezone, date: presenter.weather.dt)
+        getColor.dayGradient.frame = view.bounds
+        getColor.nightGradient.frame = view.bounds
+        tableView.backgroundColor = .clear
+       
+        view.layer.addSublayer(getColor.getBackgroundColor())
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
@@ -158,6 +161,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             return "5-DAY FORECAST"
         }
         return ""
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+            headerView.textLabel?.textColor = .lightGray
+           }
     }
     
 
