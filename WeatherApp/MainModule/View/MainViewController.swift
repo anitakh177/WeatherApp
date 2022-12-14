@@ -34,7 +34,6 @@ final class MainViewController: UIViewController, ModuleTransitionable {
 // MARK: - Main View Input
 
 extension MainViewController: MainViewInput {
-    
     func reloadData() {
         tableView.reloadData()
     }
@@ -43,14 +42,13 @@ extension MainViewController: MainViewInput {
 // MARK: - Private Methods
 
 private extension MainViewController {
-    
     func createNotifition() {
         NotificationCenter.default.addObserver(self, selector: #selector(notificateArray), name: Notification.Name("reload"), object: nil)
     }
     
     @objc func notificateArray() {
         presenter.loadCoordinatesFromStorage()
-      //  tableView.reloadData()
+        reloadData()
     }
         
     func configureView() {
@@ -117,6 +115,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
             cell?.selectionStyle = .none
+           
             if let weather = presenter.currentWeather {
                 cell?.configureDataSource(weather: weather)
                 }
@@ -124,7 +123,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
-            
              let weather = presenter.savedWeather
                 cell?.configureDataSource(weather: weather[indexPath.row])
             return cell ?? UITableViewCell()
@@ -160,16 +158,26 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            presenter.delete(index: indexPath.row, indexPath: indexPath)
+            presenter.delete(indexPath: indexPath, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.contentView.layer.masksToBounds = true
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+        
+     /*   if cell is CurrentWeatherTableViewCell {
+            
+            if indexPath.section == 0 {
+                guard let wetaher = presenter.currentWeather else { return }
+                (cell as! CurrentWeatherTableViewCell).configureBackground(weather: wetaher)
+                }
+            } else {
+                (cell as! CurrentWeatherTableViewCell).configureBackground(weather: presenter.savedWeather[indexPath.row])
+                }
+*/
+       cell.contentView.layer.masksToBounds = true
+      //  let radius = cell.contentView.layer.cornerRadius
+      //  cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
        
     }
 }
-

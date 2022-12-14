@@ -71,6 +71,7 @@ extension LocationSearchTable: SearchTableViewInput {
     }
 
 }
+
 // MARK: - UISearch delegate
 extension LocationSearchTable: UISearchBarDelegate {
     

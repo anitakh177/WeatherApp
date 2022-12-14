@@ -9,6 +9,8 @@ import UIKit
 
 final class CurrentWeatherTableViewCell: UITableViewCell {
     
+    private var gradient = BackgroundColor()
+    
     // MARK: - Views
     
     private lazy var iconImageView: UIImageView = {
@@ -57,11 +59,18 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
         return view
     }()
     
+    
+
+    
     // MARK: - Initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(roundedView)
+        iconImageView.alpha = 0.0
+        UIView.animate(withDuration: 0.5, delay: 0.3) {
+            self.iconImageView.alpha = 1.0
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -69,21 +78,20 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
     }
     
     // MARK: - Layout
-    
+
     override func layoutSubviews() {
        super.layoutSubviews()
-        setConstraints()
+        gradient.dayGradient.frame = roundedView.bounds
+        gradient.nightGradient.frame = roundedView.bounds
+        self.setConstraints()
+
     }
     
-   
     // MARK: - Open Methods
-    
+
     func configureDataSource(weather: CurrentWeather) {
-        var getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
-        getColor.nightGradient.frame = roundedView.bounds
-        getColor.dayGradient.frame = roundedView.bounds
-        roundedView.layer.addSublayer(getColor.getBackgroundColor())
-        
+       configureBackground(weather: weather)
+       
         let icon = IconWithString(timezone: weather.timezone, date: weather.dt)
         let image = icon.getIcon(with: weather.weather.first!.id)
         iconImageView.image = UIImage(named: image)
@@ -152,5 +160,19 @@ private extension CurrentWeatherTableViewCell {
         descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         tempLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
        
+    }
+    
+    func configureBackground(weather: CurrentWeather) {
+        let dateConverter = DateConverter(timezone: weather.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
+        
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
+        
+        if isDay == true {
+            roundedView.layer.addSublayer(gradient.dayGradient)
+        } else {
+            roundedView.layer.addSublayer(gradient.nightGradient)
+        }
+
     }
 }

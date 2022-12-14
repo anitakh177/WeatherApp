@@ -73,8 +73,11 @@ final class ForecstTableViewCell: UITableViewCell {
     // MARK: - Open Methods
     
     func configureBackgroundColor(weather: CurrentWeather) {
-        let getColor = GetBackgroundColor(timezone: weather.timezone, date: weather.dt)
-        contentView.backgroundColor = getColor.getDetailsColor().withAlphaComponent(0.8)
+        let dateConverter = DateConverter(timezone: weather.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
+        let backgroundColor = BackgroundColor()
+        contentView.backgroundColor = backgroundColor.getDetailsColor(isDay: isDay).withAlphaComponent(0.8)
     }
     
     

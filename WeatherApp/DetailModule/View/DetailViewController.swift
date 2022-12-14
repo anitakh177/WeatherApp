@@ -5,7 +5,6 @@
 //  Created by anita on 11/25/22.
 //
 
-import Foundation
 import UIKit
 
 final class DetailViewController: UIViewController {
@@ -14,6 +13,7 @@ final class DetailViewController: UIViewController {
     
     var presenter: DetailViewPresenter!
     private var forecastViewModel = [ForecastViewModel]()
+    private var gradient = BackgroundColor()
     
     // MARK: - Views
     
@@ -59,12 +59,20 @@ private extension DetailViewController {
     }
     
     func configureTableView() {
-        var getColor = GetBackgroundColor(timezone: presenter.weather.timezone, date: presenter.weather.dt)
-        getColor.dayGradient.frame = view.bounds
-        getColor.nightGradient.frame = view.bounds
+        gradient.dayGradient.frame = view.bounds
+        gradient.nightGradient.frame = view.bounds
+        let dateConverter = DateConverter(timezone: presenter.weather.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: presenter.weather.dt)
+        
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
+        
+        if isDay == true {
+            view.layer.addSublayer(gradient.dayGradient)
+        } else {
+            view.layer.addSublayer(gradient.nightGradient)
+        }
+
         tableView.backgroundColor = .clear
-       
-        view.layer.addSublayer(getColor.getBackgroundColor())
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self

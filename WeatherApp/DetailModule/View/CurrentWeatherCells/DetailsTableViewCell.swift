@@ -55,8 +55,12 @@ final class DetailsTableViewCell: UITableViewCell {
     // MARK: - Open Methods
     
     func updateCell(with model: CurrentWeather) {
-        let getColor = GetBackgroundColor(timezone: model.timezone, date: model.dt)
-        contentView.backgroundColor = getColor.getDetailsColor().withAlphaComponent(0.8)
+        let dateConverter = DateConverter(timezone: model.timezone)
+        let convertedDate = dateConverter.convertDateFromUTC(string: model.dt)
+        let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
+        let backgroundColor = BackgroundColor()
+        contentView.backgroundColor = backgroundColor.getDetailsColor(isDay: isDay).withAlphaComponent(0.8)
+        
         self.weather = model
         collectionView.reloadData()
     }
@@ -66,7 +70,6 @@ final class DetailsTableViewCell: UITableViewCell {
 // MARK: - Private Methods
 
 private extension DetailsTableViewCell {
-    
     func setConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         

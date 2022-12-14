@@ -66,7 +66,6 @@ final class DetailViewPresenter: DetailViewOutput {
     func save() {
         let storageService = FavoriteCityStorageService()
         storageService.saveCoordinates(coordinates: weather.coord)
-        
     }
      
     }

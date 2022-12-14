@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080151822949ABC100C24EE6 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080151812949ABC100C24EE6 /* BackgroundColor.swift */; };
 		0805475E2939CF0C00CF1542 /* ForecstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805475D2939CF0C00CF1542 /* ForecstTableViewCell.swift */; };
 		080547602939D8A100CF1542 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0805475F2939D8A100CF1542 /* ForecastViewModel.swift */; };
 		080BF809293E4CC500C13E64 /* FavoriteCityStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080BF808293E4CC500C13E64 /* FavoriteCityStorageService.swift */; };
 		08387035292F73E60084E606 /* MainViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387034292F73E60084E606 /* MainViewInput.swift */; };
 		08387037292F73F20084E606 /* MainViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387036292F73F20084E606 /* MainViewOutput.swift */; };
 		08387039292F73FC0084E606 /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08387038292F73FC0084E606 /* MainViewPresenter.swift */; };
-		083A913D294090F70001A1D7 /* GetBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A913C294090F70001A1D7 /* GetBackgroundColor.swift */; };
 		083C344E293096F80066BE22 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C344D293096F80066BE22 /* LocationManager.swift */; };
 		083C34522930BD920066BE22 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C34512930BD920066BE22 /* DetailViewController.swift */; };
 		083C34552930BF3C0066BE22 /* TemperatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083C34542930BF3C0066BE22 /* TemperatureTableViewCell.swift */; };
@@ -57,13 +57,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080151812949ABC100C24EE6 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		0805475D2939CF0C00CF1542 /* ForecstTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecstTableViewCell.swift; sourceTree = "<group>"; };
 		0805475F2939D8A100CF1542 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		080BF808293E4CC500C13E64 /* FavoriteCityStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCityStorageService.swift; sourceTree = "<group>"; };
 		08387034292F73E60084E606 /* MainViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewInput.swift; sourceTree = "<group>"; };
 		08387036292F73F20084E606 /* MainViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewOutput.swift; sourceTree = "<group>"; };
 		08387038292F73FC0084E606 /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
-		083A913C294090F70001A1D7 /* GetBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBackgroundColor.swift; sourceTree = "<group>"; };
 		083C344D293096F80066BE22 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		083C34512930BD920066BE22 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		083C34542930BF3C0066BE22 /* TemperatureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureTableViewCell.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 				08F2D1902935E22600AD6AA4 /* DateConverter.swift */,
 				08D938E629377143001C9D7B /* ModuleTransitionable.swift */,
 				08A279AA29388F8E006F2633 /* InsetConstants.swift */,
-				083A913C294090F70001A1D7 /* GetBackgroundColor.swift */,
+				080151812949ABC100C24EE6 /* BackgroundColor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -505,6 +505,7 @@
 				08AC4FF229326F8400253C3D /* DetailViewPresenter.swift in Sources */,
 				0885EE6429420655008FE316 /* LocationManagerDelegate.swift in Sources */,
 				087ECEE8292E7FB4005A97A3 /* MainViewController.swift in Sources */,
+				080151822949ABC100C24EE6 /* BackgroundColor.swift in Sources */,
 				08AC4FEF2932421800253C3D /* Location.swift in Sources */,
 				08387039292F73FC0084E606 /* MainViewPresenter.swift in Sources */,
 				083C345A293119A30066BE22 /* CurrentWeatherTableViewCell.swift in Sources */,
@@ -527,7 +528,6 @@
 				083C344E293096F80066BE22 /* LocationManager.swift in Sources */,
 				08387035292F73E60084E606 /* MainViewInput.swift in Sources */,
 				083C345C29311E730066BE22 /* LocationSearchTable.swift in Sources */,
-				083A913D294090F70001A1D7 /* GetBackgroundColor.swift in Sources */,
 				08D938E729377143001C9D7B /* ModuleTransitionable.swift in Sources */,
 				08A279A429387F1E006F2633 /* DetailsTableViewCell.swift in Sources */,
 				08D938E129376F7B001C9D7B /* SearchRouterInput.swift in Sources */,

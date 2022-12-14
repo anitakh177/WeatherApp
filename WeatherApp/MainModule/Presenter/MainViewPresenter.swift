@@ -9,16 +9,16 @@ import Foundation
 import CoreLocation
 
 final class MainViewPresenter: MainViewOutput {
-     
+    
     // MARK: - Properties
-
+    
     var savedWeather = [CurrentWeather]()
     var view: MainViewInput?
     private let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
     var router: MainRouterInput?
     let locationManager = LocationManager()
-  
+    
     // MARK: - Initialization
     
     required init(view: MainViewInput, dataFetcherService: DataFetcherService) {
@@ -40,45 +40,43 @@ final class MainViewPresenter: MainViewOutput {
     func pushDetailVC(weather: CurrentWeather) {
         router?.showPushModule(weather: weather)
     }
-   
+    
     func pushSearchVC() {
         router?.showSearchModule()
     }
     
     func loadCoordinatesFromStorage() {
-        let dispatchGroup = DispatchGroup()
-         let storage = FavoriteCityStorageService()
-         storage.loadCoordinates { [weak self] result in
+     let dispatchGroup = DispatchGroup()
+     let storage = FavoriteCityStorageService()
+     storage.loadCoordinates { [weak self] result in
          switch result {
-         case .success(let coord):
-         
-         coord.forEach { item in
-         dispatchGroup.enter()
-         self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
-         self?.savedWeather.append(weather!)
-         dispatchGroup.leave()
-         }
-         
-         }
-         
-         dispatchGroup.notify(queue: .main) {
-         self?.view?.reloadData()
-         }
-         case .failure(let error):
-         print(error)
-         }
-         
-         }
-         
+            case .success(let coord):
+            self?.savedWeather = []
+            coord.forEach { item in
+                dispatchGroup.enter()
+            self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
+            self?.savedWeather.append(weather!)
+                dispatchGroup.leave()
+                        }
+                    }
+                                        
+                dispatchGroup.notify(queue: .main) {
+                    self?.view?.reloadData()
+                        }
+            case .failure(let error):
+                    print(error)
+                }
+                                        
+            }
+                                        
     }
     
-    func delete(index: Int, indexPath: IndexPath) {
-        let storage = FavoriteCityStorageService()
+    func delete(indexPath: IndexPath, index: Int) {
+         let storage = FavoriteCityStorageService()
         savedWeather.remove(at: indexPath.row)
-        storage.delete(index: index)
+         storage.delete(index: index)
+        
     }
-    
-   
 }
 
 extension MainViewPresenter: LocationManagerDelegate {

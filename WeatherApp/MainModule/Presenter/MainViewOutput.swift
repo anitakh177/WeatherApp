@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import CoreLocation
 
 protocol MainViewOutput {
+    
     init(view: MainViewInput, dataFetcherService: DataFetcherService)
     var currentWeather: CurrentWeather? { get set }
     var savedWeather: [CurrentWeather] { get set }
@@ -16,7 +16,6 @@ protocol MainViewOutput {
     func loadCoordinatesFromStorage()
     func pushDetailVC(weather: CurrentWeather)
     func pushSearchVC()
-    func delete(index: Int, indexPath: IndexPath)
+    func delete(indexPath: IndexPath, index: Int)
    
-    
 }
