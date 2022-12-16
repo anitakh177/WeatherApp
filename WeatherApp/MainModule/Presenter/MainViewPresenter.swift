@@ -10,6 +10,8 @@ import CoreLocation
 
 final class MainViewPresenter: MainViewOutput {
     
+    
+    
     // MARK: - Properties
     
     var savedWeather = [CurrentWeather]()
@@ -18,6 +20,7 @@ final class MainViewPresenter: MainViewOutput {
     var currentWeather: CurrentWeather?
     var router: MainRouterInput?
     let locationManager = LocationManager()
+    var networkMonitor = NetworkMonitor()
     
     // MARK: - Initialization
     
@@ -26,14 +29,24 @@ final class MainViewPresenter: MainViewOutput {
         self.dataFetcherService = dataFetcherService
         self.locationManager.delegate = self
         self.locationManager.startUpdating()
+        networkMonitor.startMonitoring()
     }
     
     // MARK: - Methods
     
     func loadData(lat: Double, long: Double) {
-        dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { weather in
-            self.currentWeather = weather
-            self.view?.reloadData()
+        dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { [weak self] weather in
+            guard let self = self else { return }
+            switch weather {
+            case .success(let currentWeather):
+                self.currentWeather = currentWeather
+                self.view?.reloadData()
+                
+            case .failure(_):
+                break
+                
+            }
+           
         }
     }
     
@@ -48,21 +61,33 @@ final class MainViewPresenter: MainViewOutput {
     func loadCoordinatesFromStorage() {
      let dispatchGroup = DispatchGroup()
      let storage = FavoriteCityStorageService()
+        
      storage.loadCoordinates { [weak self] result in
+         guard let self = self else { return }
          switch result {
             case .success(let coord):
-            self?.savedWeather = []
-            coord.forEach { item in
-                dispatchGroup.enter()
-            self?.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
-            self?.savedWeather.append(weather!)
-                dispatchGroup.leave()
-                        }
-                    }
-                                        
-                dispatchGroup.notify(queue: .main) {
-                    self?.view?.reloadData()
-                        }
+            self.savedWeather = []
+             coord.forEach { item in
+                 dispatchGroup.enter()
+                 self.dataFetcherService.searchCoordinates(latitude: item.lat, longitude: item.lon) { [weak self] weather in
+                     
+                     switch weather {
+                     case .success(let currentWeather):
+                         if let currentWeather = currentWeather {
+                             self?.savedWeather.append(currentWeather)
+                         }
+                         dispatchGroup.leave()
+                         dispatchGroup.notify(queue: .main) {
+                             self?.view?.reloadData()
+                         }
+                     case .failure(let error):
+                         print(error.localizedDescription)
+                     
+                     }
+                     
+                 }
+             }
+           
             case .failure(let error):
                     print(error)
                 }
@@ -77,6 +102,19 @@ final class MainViewPresenter: MainViewOutput {
          storage.delete(index: index)
         
     }
+    
+    func monitoring() {
+        if networkMonitor.isConnected == false  {
+            DispatchQueue.main.async {
+                self.router?.showMessageModule(with: "No Internet Connection", with: "Please check your access to Internet")
+            }
+        } else {
+            return
+        }
+    }
+    
+   
+    
 }
 
 extension MainViewPresenter: LocationManagerDelegate {
@@ -89,3 +127,4 @@ extension MainViewPresenter: LocationManagerDelegate {
         loadData(lat: lat, long: long)
     }
 }
+

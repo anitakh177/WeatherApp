@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct IconWithString {
     
    private let timezone: Int

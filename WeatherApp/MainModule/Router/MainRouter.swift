@@ -10,6 +10,7 @@ import UIKit
 
 final class MainRouter: MainRouterInput {
     
+    
     // MARK: - Properties
     
     weak var view: ModuleTransitionable?
@@ -32,5 +33,4 @@ final class MainRouter: MainRouterInput {
         alertController.addAction(okAction)
         view?.presentModule(alertController, animated: true, completion: nil)
     }
-  
 }

@@ -26,10 +26,17 @@ final class DetailViewPresenter: DetailViewOutput {
     }
     
     func loadForecast() {
-        dataFetcherService.forecast(latitude: weather.coord.lat, longitude: weather.coord.lon) { [weak self] forecast in
-            self?.forecast = forecast
-            self?.view?.updateForecast(self!.getDailyForecast(forecast: forecast!))
-          
+        dataFetcherService.forecast(latitude: weather.coord.lat, longitude: weather.coord.lon) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let forecast):
+                self.forecast = forecast
+                self.view?.updateForecast(self.getDailyForecast(forecast: forecast!))
+            case .failure(let error):
+                print(error.localizedDescription)
+                
+            }
         }
            
     }

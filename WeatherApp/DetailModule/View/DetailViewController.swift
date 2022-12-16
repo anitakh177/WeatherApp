@@ -47,6 +47,9 @@ private extension DetailViewController {
         let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addToFav))
         rightItem.tintColor = .white
         navigationItem.rightBarButtonItem = rightItem
+        
+        
+       
     }
     
     @objc func addToFav() {

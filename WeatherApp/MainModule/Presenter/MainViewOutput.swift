@@ -17,5 +17,6 @@ protocol MainViewOutput {
     func pushDetailVC(weather: CurrentWeather)
     func pushSearchVC()
     func delete(indexPath: IndexPath, index: Int)
+    func monitoring()
    
 }

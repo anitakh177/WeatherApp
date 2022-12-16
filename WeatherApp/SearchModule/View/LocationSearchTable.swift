@@ -18,6 +18,11 @@ final class LocationSearchTable: UITableViewController, ModuleTransitionable {
     // MARK: - Views
     
     private lazy var searchBar = UISearchBar()
+    private lazy var emptyResultView: EmptyResultView = {
+        let view = EmptyResultView()
+        view.isHidden = true
+        return view
+    }()
     
     // MARK: - Lifecycle
     
@@ -36,6 +41,7 @@ private extension LocationSearchTable {
         configureTableView()
         createSearchBar()
         configureNavigationBar()
+        configureEmptyResultView()
     }
     
     func createSearchBar() {
@@ -61,11 +67,29 @@ private extension LocationSearchTable {
         tableView.dataSource = self
         
     }
+    
+    func configureEmptyResultView() {
+        view.addSubview(emptyResultView)
+        NSLayoutConstraint.activate([
+            emptyResultView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 314),
+            emptyResultView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            emptyResultView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 16),
+            emptyResultView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: -16)
+        ])
+    }
 }
 
 // MARK: - Search Table View Input
 
 extension LocationSearchTable: SearchTableViewInput {
+    func hideEmptyView() {
+        emptyResultView.isHidden = true
+    }
+    
+    func showEmptyView() {
+        emptyResultView.isHidden = false
+    }
+    
     func reloadData() {
         tableView.reloadData()
     }

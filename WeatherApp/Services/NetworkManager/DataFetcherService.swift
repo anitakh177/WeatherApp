@@ -23,7 +23,7 @@ init(dataFetcher: DataFetcher = NetworkDataFetcher()) {
 }
 
 
-    func searchCoordinates(latitude: Double, longitude: Double, comletion: @escaping(CurrentWeather?) -> Void) {
+    func searchCoordinates(latitude: Double, longitude: Double, comletion: @escaping (Result<CurrentWeather?, Error>) -> Void) {
         let lat = "lat=\(latitude)"
         let lon = "lon=\(longitude)"
         let urlSearch = String(baseURL+"weather?"+lat+"&"+lon+apiKey+Units.metric)
@@ -31,7 +31,7 @@ init(dataFetcher: DataFetcher = NetworkDataFetcher()) {
     
     }
     
-    func forecast(latitude: Double, longitude: Double, completion: @escaping(Forecast?) -> Void) {
+    func forecast(latitude: Double, longitude: Double, completion: @escaping(Result<Forecast?, Error>) -> Void) {
         let lat = "lat=\(latitude)"
         let lon = "lon=\(longitude)"
         let urlSearch = String(baseURL+"forecast?"+lat+"&"+lon+apiKey+Units.metric)

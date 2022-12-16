@@ -26,7 +26,7 @@ final class MainViewController: UIViewController, ModuleTransitionable {
         configureView()
         createNotifition()
         presenter.loadCoordinatesFromStorage()
-        
+        presenter.monitoring()
     }
     
 }
@@ -54,6 +54,7 @@ private extension MainViewController {
     func configureView() {
         view.backgroundColor = .white
         navigationItem.title = "Weather"
+        navigationController?.navigationBar.prefersLargeTitles = true
        
         configureTableView()
         configureNavigationBar()
@@ -164,20 +165,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-     /*   if cell is CurrentWeatherTableViewCell {
-            
-            if indexPath.section == 0 {
-                guard let wetaher = presenter.currentWeather else { return }
-                (cell as! CurrentWeatherTableViewCell).configureBackground(weather: wetaher)
-                }
-            } else {
-                (cell as! CurrentWeatherTableViewCell).configureBackground(weather: presenter.savedWeather[indexPath.row])
-                }
-*/
        cell.contentView.layer.masksToBounds = true
-      //  let radius = cell.contentView.layer.cornerRadius
-      //  cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-       
     }
 }

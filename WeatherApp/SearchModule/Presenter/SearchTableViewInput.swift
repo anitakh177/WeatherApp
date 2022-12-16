@@ -9,4 +9,6 @@ import Foundation
 
 protocol SearchTableViewInput {
     func reloadData()
+    func showEmptyView()
+    func hideEmptyView()
 }

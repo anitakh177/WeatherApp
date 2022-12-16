@@ -103,7 +103,6 @@ final class CurrentWeatherTableViewCell: UITableViewCell {
         let tempLow = String(format: "%.f", weather.main.tempMin)
         highAndLowTemp.text = "H: \(tempHigh)° L: \(tempLow)°"
         
-       
     }
 }
 
@@ -165,7 +164,6 @@ private extension CurrentWeatherTableViewCell {
     func configureBackground(weather: CurrentWeather) {
         let dateConverter = DateConverter(timezone: weather.timezone)
         let convertedDate = dateConverter.convertDateFromUTC(string: weather.dt)
-        
         let isDay = dateConverter.compareTime(now: convertedDate, timeZone: timezone)
         
         if isDay == true {

@@ -29,7 +29,7 @@ struct Clouds: Codable {
 }
 
 // MARK: - Coord
-struct Coord: Codable {
+struct Coord: Codable, Equatable {
     let lon, lat: Double
 }
 

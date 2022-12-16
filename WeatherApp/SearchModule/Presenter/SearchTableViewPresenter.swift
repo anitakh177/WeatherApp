@@ -33,8 +33,15 @@ final class SearchTableViewPresenter: SearchTableViewOutput {
     func loadData(for lat: Double, long: Double) {
         dataFetcherService.searchCoordinates(latitude: lat, longitude: long) { [weak self] weather in
             guard let self = self else { return }
-            self.currentWeather = weather
-            self.view?.reloadData()
+            
+            switch weather {
+            case .success(let currentWeather):
+                    self.currentWeather = currentWeather
+                    self.view?.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+           
         }
         
     }
@@ -47,11 +54,17 @@ final class SearchTableViewPresenter: SearchTableViewOutput {
         self.locations = []
         locationManager.findLocations(with: text) { [weak self] location in
                 DispatchQueue.main.async {
+                    if location.isEmpty {
+                        self?.view?.reloadData()
+                        self?.view?.showEmptyView()
+                    } else {
                     self?.locations! += location
+                    self?.view?.hideEmptyView()
                     self?.view?.reloadData()
 
-            }
+                    }
+                }
         }
-    }
     
+    }
 }
