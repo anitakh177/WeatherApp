@@ -45,7 +45,7 @@ private extension LocationSearchTable {
     }
     
     func createSearchBar() {
-        searchBar = UISearchBar(frame: CGRect(x: 56, y: 20, width: 300, height: 32))
+        searchBar = UISearchBar(frame: CGRect(x: 56, y: 0, width: 300, height: 32))
         searchBar.placeholder = "Search for a city"
         searchBar.delegate = self
         
@@ -65,6 +65,7 @@ private extension LocationSearchTable {
         tableView.register(LocationSearchTableViewCell.self, forCellReuseIdentifier: "\(LocationSearchTableViewCell.self)")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 40
         
     }
     
@@ -102,6 +103,7 @@ extension LocationSearchTable: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let text = searchBar.text, !text.isEmpty {
             presenter?.searchLocation(for: text)
+           // presenter?.loadData()
         }
     }
     
@@ -120,8 +122,7 @@ extension LocationSearchTable {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "\(LocationSearchTableViewCell.self)", for: indexPath) as! LocationSearchTableViewCell
-       
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(LocationSearchTableViewCell.self)", for: indexPath) as? LocationSearchTableViewCell else { return UITableViewCell() }
         if let locations = presenter?.locations {
             cell.configureDataSource(location: locations[indexPath.row])
         }
@@ -129,13 +130,15 @@ extension LocationSearchTable {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let locations = presenter?.locations else { return }
-            let coordinate = locations[indexPath.row].coordinates
+        let coordinate = locations[indexPath.row].coordinates
         self.presenter?.loadData(for: coordinate!.latitude, long: coordinate!.longitude)
-            
-            if let weather = presenter?.currentWeather {
-                presenter?.pushDetailVC(weather: weather)
+    
+        if let weather = presenter?.currentWeather {
+            self.presenter?.pushDetailVC(weather: weather)
             }
+       
         }
     }
 

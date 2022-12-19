@@ -114,19 +114,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
-            cell?.selectionStyle = .none
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
            
             if let weather = presenter.currentWeather {
-                cell?.configureDataSource(weather: weather)
+                cell.configureDataSource(weather: weather)
                 }
-            return cell ?? UITableViewCell()
+            return cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(CurrentWeatherTableViewCell.self)", for: indexPath) as? CurrentWeatherTableViewCell else { return UITableViewCell() }
              let weather = presenter.savedWeather
-                cell?.configureDataSource(weather: weather[indexPath.row])
-            return cell ?? UITableViewCell()
+                cell.configureDataSource(weather: weather[indexPath.row])
+            return cell
             
         default:
             return UITableViewCell()

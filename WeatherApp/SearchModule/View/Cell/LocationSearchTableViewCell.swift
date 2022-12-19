@@ -48,7 +48,6 @@ final class LocationSearchTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
 private extension LocationSearchTableViewCell {
-    
     func setConstraints() {
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
