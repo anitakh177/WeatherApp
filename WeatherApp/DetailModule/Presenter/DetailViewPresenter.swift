@@ -13,7 +13,7 @@ final class DetailViewPresenter: DetailViewOutput {
     //MARK: - Properties
     
     let dataFetcherService: DataFetcherService
-    var view: DetailViewInput?
+    weak var view: DetailViewInput?
     var weather: CurrentWeather
     var forecast: Forecast?
     var forecastViewModel = [ForecastViewModel]()

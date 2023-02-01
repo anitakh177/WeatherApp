@@ -10,12 +10,10 @@ import CoreLocation
 
 final class MainViewPresenter: MainViewOutput {
     
-    
-    
     // MARK: - Properties
     
     var savedWeather = [CurrentWeather]()
-    var view: MainViewInput?
+    weak var view: MainViewInput?
     private let dataFetcherService: DataFetcherService
     var currentWeather: CurrentWeather?
     var router: MainRouterInput?

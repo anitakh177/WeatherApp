@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol MainViewInput {
+protocol MainViewInput: AnyObject {
     func reloadData()
 }
